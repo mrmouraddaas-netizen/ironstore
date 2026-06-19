@@ -26,12 +26,13 @@ ul{list-style:none}
 .section-subtitle{text-align:center;color:#64748b;font-size:.75rem;margin-bottom:36px;text-transform:uppercase;letter-spacing:2px;font-weight:500}
 .gradient-text{background:var(--navy-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .navy-text{color:var(--navy)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;border-radius:50px;font-weight:700;font-size:.85rem;transition:all .3s ease;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;border:2px solid}
-.btn-primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.btn-primary:hover{background:transparent;color:var(--navy);border-color:var(--navy);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}
-.btn-outline:hover{background:var(--navy);color:var(--white);border-color:var(--navy);transform:translateY(-2px)}
-.btn-sm{padding:6px 16px;font-size:.78rem;letter-spacing:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 28px;border-radius:50px;font-weight:700;font-size:.85rem;transition:all .3s cubic-bezier(.22,.61,.36,1);text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;border:2px solid}
+.btn-primary{background:#fff;color:#1a2940;border-color:#fff;box-shadow:0 4px 15px rgba(255,255,255,.3)}
+.btn-primary:hover{background:#1a2940;color:#fff;border-color:#fff;transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,255,255,.4)}
+.btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.btn-outline:hover{background:#fff;color:#1a2940;border-color:#fff;transform:translateY(-3px);box-shadow:0 8px 25px rgba(255,255,255,.3)}
+.btn-sm{padding:6px 16px;font-size:.78rem;letter-spacing:1px;background:transparent;color:#1a2940;border-color:#1a2940}
+.btn-sm:hover{background:#1a2940;color:#fff;border-color:#1a2940}
 .card-wrap{position:relative;overflow:hidden;border-radius:12px;display:flex;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .card-inner{position:relative;z-index:1;background:#fff;display:flex;flex-direction:column}
 /* Promo Bar */
@@ -105,13 +106,14 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .product-info .p-price{font-size:1.2rem;font-weight:800;color:#1a2940}
 .product-info .p-rating{display:flex;align-items:center;gap:4px;font-size:.78rem;color:#666}
 .product-info .p-rating .stars{color:#f59e0b;letter-spacing:2px}
-.product-info .p-add{width:100%;margin-top:4px;padding:11px;border-radius:10px;background:#1a2940;border:none;color:#fff;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all .25s;font-family:inherit}
-.product-info .p-add:hover{background:#2c4a7c;transform:translateY(-1px)}
+.product-info .p-add{width:100%;margin-top:4px;padding:11px;border-radius:10px;background:#fff;border:2px solid #1a2940;color:#1a2940;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;cursor:pointer;transition:all .25s;font-family:inherit}
+.product-info .p-add:hover{background:#1a2940;color:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(26,41,64,.2)}
 /* Product Detail Page - FC Style */
 .product-detail{display:none;padding:40px 0;background:var(--bg-2);border-radius:12px;margin:20px 0}
 .product-detail.active{display:block}
 .pd-back{margin-bottom:20px}
-.pd-back .btn{font-size:.78rem;padding:8px 20px}
+.pd-back .btn{font-size:.78rem;padding:8px 20px;background:#f0f0f0;color:#1a2940;border-color:#ddd}
+.pd-back .btn:hover{background:#1a2940;color:#fff;border-color:#1a2940}
 .pd-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 .pd-gallery{position:relative;border-radius:16px;overflow:hidden;background:var(--bg-3)}
 .pd-main-img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:zoom-in;transition:transform .3s}
@@ -136,16 +138,17 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .pd-qty-controls button{width:36px;height:36px;background:#eef0f3;color:#1a1a2e;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .pd-qty-controls button:hover{background:var(--navy);color:#fff}
 .pd-qty-controls span{width:40px;text-align:center;font-weight:700;font-size:1rem;background:#eef0f3;height:36px;display:flex;align-items:center;justify-content:center}
-.pd-add-cart{width:100%;padding:14px;font-size:.95rem;margin-top:4px}
+.pd-add-cart{width:100%;padding:14px;font-size:.95rem;margin-top:4px;background:#fff;color:#1a2940;border-color:#1a2940;box-shadow:none}
+.pd-add-cart:hover{background:#1a2940;color:#fff;border-color:#1a2940;box-shadow:0 4px 15px rgba(26,41,64,.2)}
 .pd-details-box{border:1px solid rgba(26,41,64,.1);border-radius:12px;padding:16px;margin-top:8px}
 .pd-details-box h4{font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--navy);margin-bottom:8px;font-weight:700}
 .pd-details-box ul{list-style:disc;padding-left:18px}
 .pd-details-box ul li{color:var(--text-light);font-size:.85rem;padding:3px 0}
 /* Category Filter */
-.cat-tabs{display:flex;justify-content:center;gap:0;margin-bottom:32px;background:var(--bg-3);border-radius:12px;padding:4px;max-width:500px;margin-left:auto;margin-right:auto;flex-wrap:wrap}
-.cat-tab{padding:10px 22px;border-radius:8px;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s;color:var(--text-muted);flex:1;text-align:center;min-width:80px}
-.cat-tab.active{background:var(--navy);color:var(--white)}
-.cat-tab:not(.active):hover{color:var(--navy)}
+.cat-tabs{display:flex;justify-content:center;gap:6px;margin-bottom:32px;max-width:650px;margin-left:auto;margin-right:auto;flex-wrap:wrap}
+.cat-tab{padding:10px 24px;border-radius:50px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;cursor:pointer;transition:all .3s cubic-bezier(.22,.61,.36,1);color:#666;background:#f0f0f0;border:1px solid #e0e0e0;flex:1;text-align:center;min-width:80px}
+.cat-tab.active{background:#1a2940;color:#fff;border-color:#1a2940;box-shadow:0 4px 15px rgba(26,41,64,.25)}
+.cat-tab:not(.active):hover{color:#1a2940;background:#e8e8e8;border-color:#ccc;transform:translateY(-2px)}
 /* Features */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .feature-card{padding:24px 20px;text-align:center;transition:all .3s ease}
@@ -633,7 +636,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <!-- Product Detail -->
 <div class="product-detail" id="productDetail">
 <div class="container">
-<div class="pd-back"><button class="btn btn-outline btn-sm" data-i18n="pd-back" onclick="closeProductDetail()">← Back to Shop</button></div>
+<div class="pd-back"><button class="btn btn-sm" onclick="closeProductDetail()">← Back to Shop</button></div>
 <div class="pd-layout">
 <div class="pd-gallery">
 <img class="pd-main-img" id="pdMainImg" src="" alt="">
@@ -904,7 +907,7 @@ const DEFAULT_PRODUCTS = [
     id:1,cat:'proteins',badge:'none',
     name:{en:'100% Whey Gold',fr:'100% Whey Gold Or',ar:'100% وي جولد'},
     price:6700,
-    imgs:['assets/whey-gold-1.jpg','assets/whey-gold-2.jpg','assets/whey-gold-3.jpg'],
+    imgs:['https://picsum.photos/seed/whey1/400/400','https://picsum.photos/seed/whey2/400/400','https://picsum.photos/seed/whey3/400/400'],
     desc:{en:'Premium whey protein isolate & concentrate blend. 25g protein per serving, low fat & carbs. Mixes instantly. Available in chocolate, vanilla & strawberry.',fr:'Mélange premium d\'isolat et de concentré de protéines de lactosérum. 25g de protéines par portion, faible en matières grasses et glucides. Mélange instantané. Disponible en chocolat, vanille et fraise.',ar:'مزيج بروتين مصل اللبن المعزول والمركز الفاخر. 25 جرام بروتين لكل حصة، دهون وكربوهيدرات منخفضة. يمتزج فوراً. متوفر بنكهات الشوكولاتة والفانيليا والفراولة.'},
     variants:{en:['Chocolate','Vanilla','Strawberry'],fr:['Chocolat','Vanille','Fraise'],ar:['شوكولاتة','فانيليا','فراولة']},
     details:{en:['25g protein per serving','1.8g fat • 2.3g carbs','Instant mixing technology','Available in 2kg & 5kg'],fr:['25g de protéines par portion','1.8g de matières grasses • 2.3g de glucides','Technologie de mélange instantané','Disponible en 2kg et 5kg'],ar:['25 جرام بروتين لكل حصة','1.8 جرام دهون • 2.3 جرام كربوهيدرات','تقنية الخلط الفوري','متوفر بحجم 2 كجم و 5 كجم']}
@@ -913,7 +916,7 @@ const DEFAULT_PRODUCTS = [
     id:2,cat:'proteins',badge:'NEW',
     name:{en:'ISO Zero Black',fr:'ISO Zero Black',ar:'أيزو زيرو بلاك'},
     price:8900,
-    imgs:['assets/iso-zero-1.jpg','assets/iso-zero-2.jpg'],
+    imgs:['https://picsum.photos/seed/iso1/400/400','https://picsum.photos/seed/iso2/400/400'],
     desc:{en:'Ultra-filtered isolate protein. Zero sugar, zero fat. 27g protein per serving. The cleanest protein on the market.',fr:'Protéine isolat ultra-filtrée. Zéro sucre, zéro matière grasse. 27g de protéines par portion. La protéine la plus pure du marché.',ar:'بروتين معزول فائق الترشيح. صفر سكر، صفر دهون. 27 جرام بروتين لكل حصة. أنقى بروتين في السوق.'},
     variants:{en:['Chocolate','Vanilla'],fr:['Chocolat','Vanille'],ar:['شوكولاتة','فانيليا']},
     details:{en:['27g protein per serving','0g sugar • 0g fat','CFM micro-filtered','Gluten & lactose free'],fr:['27g de protéines par portion','0g de sucre • 0g de matières grasses','Micro-filtration CFM','Sans gluten ni lactose'],ar:['27 جرام بروتين لكل حصة','0 جرام سكر • 0 جرام دهون','ترشيح دقيق CFM','خالٍ من الغلوتين واللاكتوز']}
@@ -922,7 +925,7 @@ const DEFAULT_PRODUCTS = [
     id:3,cat:'proteins',badge:'none',
     name:{en:'Mass Gainer Pro',fr:'Mass Gainer Pro',ar:'ماس جاينر برو'},
     price:7200,
-    imgs:['assets/mass-gainer-1.jpg','assets/mass-gainer-2.jpg'],
+    imgs:['https://picsum.photos/seed/mass1/400/400','https://picsum.photos/seed/mass2/400/400'],
     desc:{en:'High-calorie mass gainer with 50g protein & 1000+ calories per serving. Fortified with creatine & BCAAs for maximum gains.',fr:'Gainer hypercalorique avec 50g de protéines et 1000+ calories par portion. Enrichi en créatine et BCAAs pour des gains maximaux.',ar:'مكسب كتلة عالي السعرات مع 50 جرام بروتين وأكثر من 1000 سعرة حرارية لكل حصة. مدعم بالكرياتين والأحماض الأمينية لأقصى النتائج.'},
     variants:{en:['Chocolate','Vanilla','Banana'],fr:['Chocolat','Vanille','Banane'],ar:['شوكولاتة','فانيليا','موز']},
     details:{en:['50g protein • 1050 calories','10g creatine per serving','5g BCAAs','Ideal for hard gainers'],fr:['50g de protéines • 1050 calories','10g de créatine par portion','5g de BCAAs','Idéal pour les hard gainers'],ar:['50 جرام بروتين • 1050 سعرة حرارية','10 جرام كرياتين لكل حصة','5 جرام أحماض أمينية','مثالي لصعبي الاكتساب']}
@@ -931,7 +934,7 @@ const DEFAULT_PRODUCTS = [
     id:4,cat:'proteins',badge:'none',
     name:{en:'Casein Night Time',fr:'Casein Night Time',ar:'كازين نايت تايم'},
     price:6900,
-    imgs:['assets/casein-1.jpg','assets/casein-2.jpg'],
+    imgs:['https://picsum.photos/seed/casein1/400/400','https://picsum.photos/seed/casein2/400/400'],
     desc:{en:'Slow-release micellar casein. Perfect before bed for overnight muscle recovery. 24g protein per serving.',fr:'Caséine micellaire à libération lente. Parfaite avant le coucher pour la récupération musculaire nocturne. 24g de protéines par portion.',ar:'كازين ميسيلار بطيء الامتصاص. مثالي قبل النوم لاستشفاء العضلات أثناء الليل. 24 جرام بروتين لكل حصة.'},
     variants:{en:['Chocolate','Vanilla'],fr:['Chocolat','Vanille'],ar:['شوكولاتة','فانيليا']},
     details:{en:['24g micellar casein','Slow release (6-8 hours)','Rich in glutamine','Great before bed'],fr:['24g de caséine micellaire','Libération lente (6-8 heures)','Riche en glutamine','Idéal avant le coucher'],ar:['24 جرام كازين ميسيلار','إطلاق بطيء (6-8 ساعات)','غني بالجلوتامين','ممتاز قبل النوم']}
@@ -940,7 +943,7 @@ const DEFAULT_PRODUCTS = [
     id:5,cat:'creatine',badge:'HOT',
     name:{en:'Creapure Creatine',fr:'Creapure Creatine',ar:'كريابيور كرياتين'},
     price:4700,
-    imgs:['assets/creapure-1.jpg','assets/creapure-2.jpg'],
+    imgs:['https://picsum.photos/seed/creapure1/400/400','https://picsum.photos/seed/creapure2/400/400'],
     desc:{en:'Pure German Creapure® creatine monohydrate. The gold standard of creatine. 100% pure, no additives.',fr:'Créatine monohydrate allemande pure Creapure®. Le standard de référence de la créatine. 100% pure, sans additifs.',ar:'كرياتين مونوهيدرات ألماني نقي Creapure®. المعيار الذهبي للكرياتين. نقي 100%، بدون إضافات.'},
     variants:{en:['300g','500g','1kg'],fr:['300g','500g','1kg'],ar:['300 جم','500 جم','1 كجم']},
     details:{en:['99.99% pure Creapure®','German engineered','Micronized powder','Unflavored'],fr:['99.99% pure Creapure®','Conçu en Allemagne','Poudre micronisée','Sans arôme'],ar:['كريابيور نقي 99.99%','هندسة ألمانية','مسحوق ميكروني','بدون نكهة']}
@@ -949,7 +952,7 @@ const DEFAULT_PRODUCTS = [
     id:6,cat:'creatine',badge:'none',
     name:{en:'Creatine Monohydrate',fr:'Créatine Monohydrate',ar:'كرياتين مونوهيدرات'},
     price:3500,
-    imgs:['assets/creatine-mono-1.jpg','assets/creatine-mono-2.jpg'],
+    imgs:['https://picsum.photos/seed/cremono1/400/400','https://picsum.photos/seed/cremono2/400/400'],
     desc:{en:'High-quality micronized creatine monohydrate. Better absorption, no bloating. Mixes easily in any drink.',fr:'Créatine monohydrate micronisée de haute qualité. Meilleure absorption, sans gonflement. Se mélange facilement dans toute boisson.',ar:'كرياتين مونوهيدرات ميكروني عالي الجودة. امتصاص أفضل، بدون انتفاخ. يمتزج بسهولة في أي مشروب.'},
     variants:{en:['300g','500g','1kg'],fr:['300g','500g','1kg'],ar:['300 جم','500 جم','1 كجم']},
     details:{en:['Micronized for absorption','99.9% pure','Easy mixing','Unflavored'],fr:['Micronisée pour absorption','99.9% pure','Mélange facile','Sans arôme'],ar:['ميكروني لامتصاص أفضل','99.9% نقي','خلط سهل','بدون نكهة']}
@@ -958,7 +961,7 @@ const DEFAULT_PRODUCTS = [
     id:7,cat:'creatine',badge:'none',
     name:{en:'Crea Caps',fr:'Crea Caps',ar:'كريا كابس'},
     price:5400,
-    imgs:['assets/crea-caps-1.jpg','assets/crea-caps-2.jpg'],
+    imgs:['https://picsum.photos/seed/crecaps1/400/400','https://picsum.photos/seed/crecaps2/400/400'],
     desc:{en:'Convenient creatine capsules. 1000mg per capsule, 300 caps per bottle. Perfect for on-the-go.',fr:'Gélules de créatine pratiques. 1000mg par gélule, 300 gélules par flacon. Parfaites pour les déplacements.',ar:'كبسولات كرياتين مريحة. 1000 مجم لكل كبسولة، 300 كبسولة لكل زجاجة. مثالية للاستخدام أثناء التنقل.'},
     variants:{en:['200 caps','300 caps','500 caps'],fr:['200 gélules','300 gélules','500 gélules'],ar:['200 كبسولة','300 كبسولة','500 كبسولة']},
     details:{en:['1000mg per capsule','Easy to swallow','No taste','Convenient dosing'],fr:['1000mg par gélule','Faciles à avaler','Sans goût','Dosage pratique'],ar:['1000 مجم لكل كبسولة','سهل البلع','بدون طعم','جرعة مريحة']}
@@ -967,7 +970,7 @@ const DEFAULT_PRODUCTS = [
     id:8,cat:'preworkout',badge:'SALE',
     name:{en:'Pre-Workout Storm',fr:'Pre-Workout Storm',ar:'بري-وركآوت ستورم'},
     price:5200,
-    imgs:['assets/pre-storm-1.jpg','assets/pre-storm-2.jpg'],
+    imgs:['https://picsum.photos/seed/prestorm1/400/400','https://picsum.photos/seed/prestorm2/400/400'],
     desc:{en:'Explosive pre-workout formula with 300mg caffeine, beta-alanine, citrulline malate & agmatine. Zero crash.',fr:'Formule pré-entraînement explosive avec 300mg de caféine, bêta-alanine, citrate de citrulline et agmatine. Zéro descente.',ar:'تركيبة ما قبل التمرين المتفجرة مع 300 مجم كافيين، بيتا ألانين، سيترولين مالات وأجماتين. بدون انهيار.'},
     variants:{en:['Blue Raspberry','Green Apple','Fruit Punch'],fr:['Framboise Bleue','Pomme Verte','Fruit Punch'],ar:['توت أزرق','تفاح أخضر','فواكه مشكلة']},
     details:{en:['300mg caffeine','6g citrulline malate','3.2g beta-alanine','No artificial dyes'],fr:['300mg de caféine','6g de citrate de citrulline','3.2g de bêta-alanine','Sans colorants artificiels'],ar:['300 مجم كافيين','6 جرام سيترولين مالات','3.2 جرام بيتا ألانين','بدون ألوان صناعية']}
@@ -976,7 +979,7 @@ const DEFAULT_PRODUCTS = [
     id:9,cat:'preworkout',badge:'none',
     name:{en:'L-Citrulline Malate',fr:'L-Citrulline Malate',ar:'إل-سيترولين مالات'},
     price:3900,
-    imgs:['assets/citrulline-1.jpg','assets/citrulline-2.jpg'],
+    imgs:['https://picsum.photos/seed/cit1/400/400','https://picsum.photos/seed/cit2/400/400'],
     desc:{en:'Pure L-Citrulline Malate 2:1 ratio. Enhances blood flow, reduces fatigue, improves endurance and pumps.',fr:'L-Citrulline Malate pur ratio 2:1. Améliore le flux sanguin, réduit la fatigue, améliore l\'endurance et les pompes.',ar:'إل-سيترولين مالات نقي بنسبة 2:1. يعزز تدفق الدم، يقلل التعب، يحسن التحمل والضخامة العضلية.'},
     variants:{en:['200g','300g','500g'],fr:['200g','300g','500g'],ar:['200 جم','300 جم','500 جم']},
     details:{en:['2:1 ratio','Improved pumps','Reduced fatigue','Unflavored powder'],fr:['Ratio 2:1','Pompes améliorées','Fatigue réduite','Poudre sans arôme'],ar:['نسبة 2:1','ضخامة محسنة','تعب أقل','مسحوق بدون نكهة']}
@@ -985,7 +988,7 @@ const DEFAULT_PRODUCTS = [
     id:10,cat:'preworkout',badge:'none',
     name:{en:'Beta-Alanine Pure',fr:'Bêta-Alanine Pure',ar:'بيتا ألانين بيور'},
     price:3200,
-    imgs:['assets/beta-alanine-1.jpg','assets/beta-alanine-2.jpg'],
+    imgs:['https://picsum.photos/seed/beta1/400/400','https://picsum.photos/seed/beta2/400/400'],
     desc:{en:'Pure beta-alanine powder. Delays muscle fatigue, increases carnosine levels. Stack with creatine for best results.',fr:'Poudre de bêta-alanine pure. Retarde la fatigue musculaire, augmente les niveaux de carnosine. Associez avec la créatine pour des résultats optimaux.',ar:'مسحوق بيتا ألانين نقي. يؤخر إجهاد العضلات، يزيد مستويات الكارنوزين. استخدمه مع الكرياتين لأفضل النتائج.'},
     variants:{en:['200g','300g','500g'],fr:['200g','300g','500g'],ar:['200 جم','300 جم','500 جم']},
     details:{en:['Pure beta-alanine','Delays fatigue','Increases endurance','Unflavored'],fr:['Bêta-alanine pure','Retarde la fatigue','Augmente l\'endurance','Sans arôme'],ar:['بيتا ألانين نقي','يؤخر التعب','يزيد التحمل','بدون نكهة']}
@@ -994,7 +997,7 @@ const DEFAULT_PRODUCTS = [
     id:11,cat:'accessories',badge:'NEW',
     name:{en:'Shaker Inox Pro',fr:'Shaker Inox Pro',ar:'شاكر إينوكس برو'},
     price:2200,
-    imgs:['assets/shaker-1.jpg','assets/shaker-2.jpg'],
+    imgs:['https://picsum.photos/seed/shaker1/400/400','https://picsum.photos/seed/shaker2/400/400'],
     desc:{en:'Premium stainless steel shaker bottle. Double-wall insulated, leak-proof, mixing ball included. 700ml capacity.',fr:'Gourde shaker premium en acier inoxydable. Double paroi isolante, anti-fuite, boule mélangeuse incluse. Capacité 700ml.',ar:'زجاجة شاكر من الستانلس ستيل الفاخر. عازل مزدوج الجدار، مانع للتسرب، كرة خلط مرفقة. سعة 700 مل.'},
     variants:{en:['Black','Silver','Gold'],fr:['Noir','Argent','Or'],ar:['أسود','فضي','ذهبي']},
     details:{en:['700ml capacity','Double-wall insulation','Leak-proof lid','Mixing ball included'],fr:['Capacité 700ml','Double paroi isolante','Couvercle anti-fuite','Boule mélangeuse incluse'],ar:['سعة 700 مل','عزل مزدوج الجدار','غطاء مانع للتسرب','كرة خلط مرفقة']}
@@ -1003,7 +1006,7 @@ const DEFAULT_PRODUCTS = [
     id:12,cat:'accessories',badge:'none',
     name:{en:'Lifting Straps Pro',fr:'Sangles de Tirage Pro',ar:'أربطة رفع برو'},
     price:1800,
-    imgs:['assets/straps-1.jpg','assets/straps-2.jpg'],
+    imgs:['https://picsum.photos/seed/straps1/400/400','https://picsum.photos/seed/straps2/400/400'],
     desc:{en:'Heavy-duty cotton lifting straps for deadlifts, rows & pull-ups. Extra long for secure wrapping.',fr:'Sangles de tirage en coton robuste pour soulevés de terre, tirages et tractions. Extra longues pour un enroulement sécurisé.',ar:'أربطة رفع من القطن الثقيل للرفعات الميتة والتمارين. طويلة جداً للف آمن.'},
     variants:{en:['Black','Red','Blue'],fr:['Noir','Rouge','Bleu'],ar:['أسود','أحمر','أزرق']},
     details:{en:['Heavy-duty cotton','Extra long (50cm)','Reinforced stitching','Pair pack'],fr:['Coton robuste','Extra longues (50cm)','Coutures renforcées','Vendues par paire'],ar:['قطن ثقيل','طويل جداً (50 سم)','خياطة معززة','زوج من الأربطة']}
@@ -1012,7 +1015,7 @@ const DEFAULT_PRODUCTS = [
     id:13,cat:'accessories',badge:'none',
     name:{en:'Gym Gloves',fr:'Gants de Sport',ar:'قفازات جيم'},
     price:2500,
-    imgs:['assets/gloves-1.jpg','assets/gloves-2.jpg'],
+    imgs:['https://picsum.photos/seed/gloves1/400/400','https://picsum.photos/seed/gloves2/400/400'],
     desc:{en:'Premium leather gym gloves with padded palms, wrist support & ventilation. Available in all sizes.',fr:'Gants de sport en cuir premium avec paumes rembourrées, support de poignet et ventilation. Disponibles en toutes tailles.',ar:'قفازات جيم جلدية فاخرة مع راحة مبطنة ودعم للمعصم وتهوية. متوفرة بجميع المقاسات.'},
     variants:{en:['S','M','L','XL'],fr:['S','M','L','XL'],ar:['S','M','L','XL']},
     details:{en:['Leather palm','Wrist wrap support','Ventilated back','Machine washable'],fr:['Paume en cuir','Support de poignet','Dos ventilé','Lavable en machine'],ar:['راحة جلدية','دعم لف المعصم','ظهر مهوى','غسيل في الغسالة']}
@@ -1021,7 +1024,7 @@ const DEFAULT_PRODUCTS = [
     id:14,cat:'accessories',badge:'none',
     name:{en:'Weight Lifting Belt',fr:'Ceinture de Musculation',ar:'حزام رفع أوزان'},
     price:4500,
-    imgs:['assets/belt-1.jpg','assets/belt-2.jpg'],
+    imgs:['https://picsum.photos/seed/belt1/400/400','https://picsum.photos/seed/belt2/400/400'],
     desc:{en:'10mm thick leather lifting belt for squats, deadlifts & presses. Double-prong buckle for security.',fr:'Ceinture de musculation en cuir de 10mm pour squats, soulevés de terre et développés. Boucle à double ardillon pour la sécurité.',ar:'حزام رفع من الجلد بسمك 10 مم للقرفصاء والرفعات الميتة والضغط. إبزيم مزدوج للأمان.'},
     variants:{en:['S','M','L','XL'],fr:['S','M','L','XL'],ar:['S','M','L','XL']},
     details:{en:['10mm thick leather','Double-prong buckle','Uniform width 10cm','Great for heavy lifts'],fr:['Cuir de 10mm d\'épaisseur','Boucle à double ardillon','Largeur uniforme 10cm','Idéal pour charges lourdes'],ar:['جلد بسمك 10 مم','إبزيم مزدوج','عرض موحد 10 سم','ممتاز للأوزان الثقيلة']}
