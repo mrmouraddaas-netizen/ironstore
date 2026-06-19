@@ -1088,16 +1088,7 @@ function filterCategory(cat,btn){
   else renderProducts(productData.filter(p=>p.cat===cat));
 }
 
-function quickAdd(id){
-  const p=productData.find(x=>x.id===id);
-  if(!p)return;
-  const pv=pvariants(p);
-  const v=pv?pv[0]:null;
-  const ex=cart.find(i=>i.id===id&&i.variant===v);
-  if(ex)ex.qty=(ex.qty||1)+1;
-  else cart.push({id,name:pt(p,'name'),price:p.price,img:p.imgs&&p.imgs[0]?p.imgs[0]:'',variant:v,qty:1});
-  saveCart();renderCart();showToast(getI18n('toast-added'));
-}
+function quickAdd(id){addToCart(id,1)}
 
 // ========== PRODUCT DETAIL (FC Style) ==========
 function openProductDetail(id){
@@ -1169,7 +1160,7 @@ function addDetailToCart(){
   const p=currentDetailProduct;
   const ex=cart.find(i=>i.id===p.id&&i.variant===detailVariant);
   if(ex)ex.qty=(ex.qty||1)+detailQty;
-  else cart.push({id:p.id,name:pt(p,'name'),price:p.price,img:p.imgs&&p.imgs[0]?p.imgs[0]:'',variant:detailVariant,qty:detailQty});
+  else cart.push({id:p.id,name:pt(p,'name'),price:p.price||0,img:p.imgs&&p.imgs[0]?p.imgs[0]:'',variant:detailVariant,qty:detailQty});
   saveCart();renderCart();showToast(getI18n('toast-added'));
 }
 
@@ -1190,7 +1181,7 @@ function addToCart(id,qty){
   const pv=pvariants(p);
   const v=pv?pv[0]:null;
   const ex=cart.find(i=>i.id===id&&i.variant===v);
-  if(ex)ex.qty=(ex.qty||1)+qty;else cart.push({id,name:pt(p,'name'),price:p.price,img:p.imgs&&p.imgs[0]?p.imgs[0]:'',variant:v,qty});
+  if(ex)ex.qty=(ex.qty||1)+qty;else cart.push({id,name:pt(p,'name'),price:p.price||0,img:p.imgs&&p.imgs[0]?p.imgs[0]:'',variant:v,qty});
   saveCart();renderCart();showToast(getI18n('toast-added'));
 }
 
@@ -1227,20 +1218,20 @@ function renderCart(){
   cart.forEach(i=>{
     const p=productData.find(x=>x.id===i.id);
     const name=p?pt(p,'name'):i.name;
-    const st=i.price*(i.qty||1);t+=st;
+    const st=(i.price||0)*(i.qty||1);t+=st;
     h+=`<div class="cart-item">
-      <div class="cart-item-img"><img src="${i.img}" alt="${name}"></div>
+      <div class="cart-item-img"><img src="${i.img}" alt="${name}" onerror="this.onerror=null;this.style.display='none'"></div>
       <div class="cart-item-info">
         <h4>${name}</h4>
         ${i.variant?`<div class="item-variant">${i.variant}</div>`:''}
         <div class="item-price">${fmt(st)} ${curr}</div>
         <div class="cart-item-qty">
-          <button type="button" onclick="changeQty(${i.id},'${i.variant||''}',-1)">−</button>
+          <button type="button" onclick="changeQty(${i.id},'${(i.variant||'').replace(/'/g,"\\'")}',-1)">−</button>
           <span>${i.qty||1}</span>
-          <button type="button" onclick="changeQty(${i.id},'${i.variant||''}',1)">+</button>
+          <button type="button" onclick="changeQty(${i.id},'${(i.variant||'').replace(/'/g,"\\'")}',1)">+</button>
         </div>
       </div>
-      <button type="button" class="cart-item-remove" onclick="removeItem(${i.id},'${i.variant||''}')">🗑️</button>
+      <button type="button" class="cart-item-remove" onclick="removeItem(${i.id},'${(i.variant||'').replace(/'/g,"\\'")}')">🗑️</button>
     </div>`;
   });
   el.innerHTML=h;
@@ -1279,7 +1270,7 @@ function updateDeliveryFee(){
   const el=document.getElementById('deliveryCost');const amt=document.getElementById('deliveryCostAmount');
   if(zone&&fee>0){el.style.display='block';amt.textContent=fmt(fee)+' DZD'}else{el.style.display='none'}
   const lang=document.documentElement.lang;const curr=lang==='ar'?'د.ج':'DZD';
-  const sub=cart.reduce((a,i)=>a+i.price*(i.qty||1),0);
+  const sub=cart.reduce((a,i)=>a+(i.price||0)*(i.qty||1),0);
   document.getElementById('summarySubtotal').textContent=fmt(sub)+' '+curr;
   if(fee>0&&cart.length){
     document.getElementById('summaryDeliveryRow').style.display='flex';
@@ -1313,7 +1304,7 @@ function submitOrder(){
   const delFee=getDeliveryFee(zone,delType);
   const delTypeLabel=delType==='home'?'Home Delivery':'Stop Desk (Pickup Point)';
   let items='';let t=0;
-  cart.forEach(i=>{const st=i.price*(i.qty||1);t+=st;items+=`${i.name}${i.variant?' ('+i.variant+')':''} x${i.qty||1} = ${fmt(st)} DZD\n`});
+  cart.forEach(i=>{const st=(i.price||0)*(i.qty||1);t+=st;items+=`${i.name}${i.variant?' ('+i.variant+')':''} x${i.qty||1} = ${fmt(st)} DZD\n`});
   sendOrderEmail({name,phone,wilaya:wilayaName,deliveryType:delTypeLabel,deliveryFee:fmt(delFee)+' DZD',address,items,total:fmt(t+delFee)+' DZD'});
   document.getElementById('formSuccess').classList.add('active');
   document.getElementById('checkoutForm').classList.remove('active');
@@ -1420,7 +1411,7 @@ function showAdminForm(id){
     document.getElementById('af-name').value=pt(p,'name')||'';
     document.getElementById('af-cat').value=p.cat||'proteins';
     document.getElementById('af-price').value=p.price||'';
-    document.getElementById('af-imgs').value=(p.imgs||[]).join(', ');
+    document.getElementById('af-imgs').value=(p.imgs||[]).filter(s=>s).join(', ');
     document.getElementById('af-desc').value=typeof p.desc==='string'?p.desc:pt(p,'desc')||'';
     document.getElementById('af-variants').value=p.variants&&Array.isArray(p.variants)?p.variants.join(', '):(p.variants&&p.variants.en?p.variants.en.join(', '):'');
     document.getElementById('af-details').value=p.details&&Array.isArray(p.details)?p.details.join(' | '):(p.details&&p.details.en?p.details.en.join(' | '):'');
@@ -1441,6 +1432,14 @@ function hideAdminForm(){
   if(form)form.classList.remove('open');
   adminEditId=null;
 }
+function previewAdminImg(){
+  const el=document.getElementById('af-imgs');
+  const preview=document.getElementById('af-img-preview');
+  if(!el||!preview)return;
+  const urls=el.value.split(',').map(s=>s.trim()).filter(Boolean);
+  preview.innerHTML=urls.map(u=>`<img src="${u}" onerror="this.style.display='none'" style="width:48px;height:48px;border-radius:6px;object-fit:cover;border:1px solid rgba(26,41,64,.1)">`).join('');
+  if(!urls.length)preview.innerHTML='<span style="font-size:.72rem;color:var(--text-muted)">No images</span>';
+}
 function createAdminForm(){
   const body=document.getElementById('adminBody');
   const div=document.createElement('div');div.className='admin-form-overlay';div.id='adminFormOverlay';
@@ -1459,7 +1458,8 @@ function createAdminForm(){
       <div><label>Reviews</label><input id="af-reviews" type="number" placeholder="e.g. 128"></div>
     </div>
     <label>Image URLs (comma-separated)</label>
-    <input id="af-imgs" placeholder="assets/whey-gold-1.jpg, assets/whey-gold-2.jpg">
+    <input id="af-imgs" placeholder="assets/whey-gold-1.jpg, assets/whey-gold-2.jpg" oninput="previewAdminImg()">
+    <div id="af-img-preview" style="display:flex;gap:6px;margin:6px 0;flex-wrap:wrap;min-height:48px"></div>
     <label>Description</label>
     <textarea id="af-desc" rows="2" placeholder="Product description"></textarea>
     <label>Variants (comma-separated)</label>
@@ -1502,12 +1502,22 @@ function saveAdminForm(){
   const rating=get('af-rating');
   const reviews=get('af-reviews');
   const delivery=get('af-delivery')||'24h';
-  const data={name,cat,price,imgs,desc,variants,details,badge,rating,reviews,delivery};
+  const lang=document.documentElement.lang;
+  const mName=adminEditId?(typeof productData.find(p=>p.id===adminEditId)?.name==='object'?Object.assign({},productData.find(p=>p.id===adminEditId).name):{}):{};
+  const mDesc=adminEditId?(typeof productData.find(p=>p.id===adminEditId)?.desc==='object'?Object.assign({},productData.find(p=>p.id===adminEditId).desc):{}):{};
+  const mVariants=adminEditId?(function(){const e=productData.find(p=>p.id===adminEditId);if(!e)return variants;const ov=e.variants;if(Array.isArray(ov))return variants;if(typeof ov==='object'){const r=Object.assign({},ov);r[lang]=Array.isArray(variants)?variants:(variants||[]);return r}return variants})():variants;
+  const mDetails=adminEditId?(function(){const e=productData.find(p=>p.id===adminEditId);if(!e)return details;const od=e.details;if(Array.isArray(od))return details;if(typeof od==='object'){const r=Object.assign({},od);r[lang]=Array.isArray(details)?details:(details||[]);return r}return details})():details;
+  mName[lang]=name;
+  mDesc[lang]=desc||'';
+  const data={name:mName,cat,price,imgs,desc:mDesc,variants:mVariants,details:mDetails,badge,rating,reviews,delivery};
   if(adminEditId){
     const idx=productData.findIndex(p=>p.id===adminEditId);
     if(idx!==-1)productData[idx]={...productData[idx],...data};
   }else{
     const maxId=productData.reduce((m,p)=>Math.max(m,p.id),0);
+    ['en','fr','ar'].forEach(l=>{if(!data.name[l])data.name[l]=name;if(!data.desc[l])data.desc[l]=desc||''});
+    if(!variants||!Array.isArray(variants)||!variants.length){data.variants={};['en','fr','ar'].forEach(l=>data.variants[l]=[])}else{data.variants={};['en','fr','ar'].forEach(l=>data.variants[l]=variants)}
+    if(!details||!Array.isArray(details)||!details.length){data.details={};['en','fr','ar'].forEach(l=>data.details[l]=[])}else{data.details={};['en','fr','ar'].forEach(l=>data.details[l]=details)}
     productData.push({id:maxId+1,...data});
   }
   localStorage.setItem('is_products',JSON.stringify(productData));
@@ -1520,6 +1530,8 @@ function adminDeleteProduct(id){
   const p=productData.find(x=>x.id===id);
   if(!p||!confirm(`Delete "${pt(p,'name')}"?`))return;
   productData=productData.filter(x=>x.id!==id);
+  cart=cart.filter(i=>i.id!==id);
+  saveCart();
   localStorage.setItem('is_products',JSON.stringify(productData));
   renderAdminProducts();
   renderProducts(productData);
