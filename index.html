@@ -1420,8 +1420,26 @@ function renderAdminProducts(){
       </div>
     </div>`;
   });
-  h+=`<p style="text-align:center;color:var(--text-muted);font-size:.72rem;padding:12px 0 4px">${productData.length} product(s) • <a href="#" onclick="event.preventDefault();changeAdminPassword()" style="color:var(--navy);text-decoration:underline">Change password</a> • <a href="#" onclick="event.preventDefault();_adminAuth=false;toggleAdmin()" style="color:var(--text-muted);text-decoration:underline">Lock</a></p>`;
+  h+=`<p style="text-align:center;color:var(--text-muted);font-size:.72rem;padding:12px 0 4px">${productData.length} product(s) • <a href="#" onclick="event.preventDefault();changeAdminPassword()" style="color:var(--navy);text-decoration:underline">Change password</a> • <a href="#" onclick="event.preventDefault();exportProducts()" style="color:var(--navy);text-decoration:underline">Export</a> • <a href="#" onclick="event.preventDefault();_adminAuth=false;toggleAdmin()" style="color:var(--text-muted);text-decoration:underline">Lock</a></p>`;
   body.innerHTML=h;
+}
+function exportProducts(){
+  const pData=JSON.parse(JSON.stringify(productData));
+  const defaultIds=new Set(DEFAULT_PRODUCTS.map(p=>p.id));
+  const userProducts=pData.filter(p=>!defaultIds.has(p.id));
+  if(!userProducts.length){alert('No user-added products to export.');return}
+  let code='// Paste these products into DEFAULT_PRODUCTS array\n';
+  userProducts.forEach(p=>{
+    code+=`  {\n    id:${p.id},cat:'${p.cat}',badge:'${p.badge||'none'}',\n    price:${p.price},\n    imgs:[${(p.imgs||[]).map(i=>`'${i}'`).join(',')}],\n    rating:${p.rating||0},reviews:${p.reviews||0},delivery:'${p.delivery||'24h'}',\n`;
+    ['name','desc'].forEach(k=>{if(p[k]&&typeof p[k]==='object'){code+=`    ${k}:{en:'${(p[k].en||'').replace(/'/g,"\\'")}',fr:'${(p[k].fr||'').replace(/'/g,"\\'")}',ar:'${(p[k].ar||'').replace(/'/g,"\\'")}'},\n`}});
+    ['variants','details'].forEach(k=>{if(p[k]&&typeof p[k]==='object'){code+=`    ${k}:{en:[${(p[k].en||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}],fr:[${(p[k].fr||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}],ar:[${(p[k].ar||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}]},\n`}});
+    code+=`  },\n`;
+  });
+  const ta=document.createElement('textarea');
+  ta.value=code;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);
+  ta.select();try{document.execCommand('copy')}catch(e){}
+  document.body.removeChild(ta);
+  alert('Product code copied! Send it to me to add to defaults.');
 }
 function changeAdminPassword(){
   const old=prompt('Current password:');
