@@ -1065,12 +1065,7 @@ function renderPromo(){
   const lang=document.documentElement.lang;
   const txt=(i18n[lang]&&i18n[lang].promo)||'🚚 Delivery across Algeria | 💪 100% Original Supplements | 📞 0554 67 22 22';
   const parts=txt.split('|').map(s=>s.trim());
-  const items=parts.map(p=>{
-    const emoji=p.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)/u);
-    const text=emoji?p.slice(emoji[0].length).trim():p;
-    return `<span>${emoji?`<span class="promo-icon">${emoji[0]}</span> `:''}${text}</span>`;
-  });
-  const html=items.join('<span class="promo-sep">|</span>');
+  const html=parts.map(p=>`<span>${p}</span>`).join('<span class="promo-sep">|</span>');
   const track=document.querySelector('.promo-track');
   if(track)track.innerHTML=html+html;
 }
