@@ -98,6 +98,7 @@ body.rtl .lang-btn{font-family:var(--font-arabic)}
 .product-card{position:relative;border-radius:14px;overflow:hidden;transition:transform .3s,box-shadow .3s;border:1px solid rgba(26,41,64,.1);cursor:pointer;background:var(--bg-2)}
 .product-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(26,41,64,.12)}
 .product-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--bg-3)}
+.product-card .p-img-placeholder{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--bg-3);color:var(--navy);font-size:3rem;font-weight:900;font-family:var(--font-display)}
 .product-info{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px}
 .product-info .p-name{font-size:.9rem;font-weight:700;line-height:1.3}
 .product-info .p-cat{font-size:.7rem;color:var(--navy-light);text-transform:uppercase;letter-spacing:1px;font-weight:600}
@@ -267,6 +268,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 .admin-product-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;background:var(--bg);margin-bottom:8px;border:1px solid rgba(26,41,64,.1);transition:box-shadow .2s}
 .admin-product-item:hover{box-shadow:0 4px 12px rgba(26,41,64,.08)}
 .admin-pi-img{width:48px;height:48px;border-radius:8px;background:var(--bg-3);object-fit:cover;flex-shrink:0}
+.admin-pi-placeholder{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:var(--navy);background:var(--bg-3)}
 .admin-pi-info{flex:1;min-width:0}
 .admin-pi-info h4{font-size:.88rem;font-weight:600}
 .admin-pi-info .pi-cat{font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
@@ -1064,12 +1066,12 @@ function renderProducts(products){
   const grid=document.getElementById('productsGrid');
   const notFoundKey='prod-not-found';
   if(!products.length){grid.innerHTML='<div style="text-align:center;padding:40px;color:var(--text-muted)" data-i18n="'+notFoundKey+'">'+getI18n(notFoundKey)+'</div>';return}
-  grid.innerHTML=products.map(p=>{
+    grid.innerHTML=products.map(p=>{
     const img=p.imgs&&p.imgs[0]?p.imgs[0]:'';
     const pname=pt(p,'name');
     return `<div class="product-card" onclick="openProductDetail(${p.id})" style="opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease">
       ${p.badge&&p.badge!=='none'?`<span class="product-badge ${p.badge.toLowerCase()}">${p.badge}</span>`:''}
-      <img src="${img}" alt="${pname}" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22><rect fill=%22%231a1a1a%22 width=%22400%22 height=%22400%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%231a2940%22 font-size=%223rem%22 font-weight=%22900%22 font-family=%22Barlow%22>${pname[0]}</text></svg>'">
+      ${img?`<img src="${img}" alt="${pname}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="p-img-placeholder">${pname[0]}</div>`:`<div class="p-img-placeholder">${pname[0]}</div>`}
       <div class="product-info">
         <span class="p-cat">${getI18n('cat-'+p.cat)}</span>
         <div class="p-name">${pname}</div>
@@ -1108,16 +1110,15 @@ function openProductDetail(id){
   document.getElementById('pdDesc').textContent=pt(p,'desc');
   document.getElementById('pdQty').textContent='1';
   const mainImg=document.getElementById('pdMainImg');
-  mainImg.src=p.imgs&&p.imgs[0]?p.imgs[0]:'';
-  mainImg.onerror=function(){this.onerror=null;this.src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><rect fill='%231a1a1a' width='400' height='400'/><text x='50%' y='50%' text-anchor='middle' dy='.3em' fill='%231a2940' font-size='3rem' font-weight='900' font-family='Barlow'>"+pname[0]+"</text></svg>"};
+  if(p.imgs&&p.imgs[0]){mainImg.src=p.imgs[0];mainImg.style.display='block';mainImg.onerror=function(){this.onerror=null;this.style.display='none'}}else{mainImg.style.display='none'}
   const thumbs=document.getElementById('pdThumbs');
   if(p.imgs&&p.imgs.length>1){
-    thumbs.innerHTML=p.imgs.map((img,i)=>`<div class="pd-thumb${i===0?' active':''}" onclick="switchPdImg(${i},this)"><img src="${img}" alt="" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22><rect fill=%22%231a1a1a%22 width=%2264%22 height=%2264%22/></svg>'"></div>`).join('');
+    thumbs.innerHTML=p.imgs.map((img,i)=>`<div class="pd-thumb${i===0?' active':''}" onclick="switchPdImg(${i},this)"><img src="${img}" alt="" onerror="this.onerror=null;this.style.display='none'"></div>`).join('');
   }else{thumbs.innerHTML=''}
   const vDiv=document.getElementById('pdVariants');
   if(pv&&pv.length>0){
     const labelKey=p.cat==='accessories'?'pd-variant-size':'pd-variant-flavor';
-    vDiv.innerHTML=`<label>${getI18n(labelKey)}</label><div class="pd-variant-options">${pv.map((v,i)=>`<button class="pd-variant-btn${i===0?' active':''}" onclick="selectVariant('${v}',this)">${v}</button>`).join('')}</div>`;
+    vDiv.innerHTML=`<label>${getI18n(labelKey)}</label><div class="pd-variant-options">${pv.map((v,i)=>`<button class="pd-variant-btn${i===0?' active':''}" onclick="selectVariant('${v.replace(/'/g,"\\'")}',this)">${v}</button>`).join('')}</div>`;
   }else{vDiv.innerHTML=''}
   const det=document.getElementById('pdDetails');
   const dc=p.details;
@@ -1141,7 +1142,9 @@ function closeProductDetail(){
 function switchPdImg(i,el){
   document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('pdMainImg').src=currentDetailProduct.imgs[i];
+  const img=document.getElementById('pdMainImg');
+  img.src=currentDetailProduct.imgs[i];img.style.display='block';
+  img.onerror=function(){this.onerror=null;this.style.display='none'};
 }
 
 function selectVariant(v,el){
@@ -1376,7 +1379,7 @@ function renderAdminProducts(){
   let h='<button class="admin-add-btn" onclick="showAdminForm(null)">+ Add New Product</button>';
   productData.forEach(p=>{
     h+=`<div class="admin-product-item">
-      <img class="admin-pi-img" src="${p.imgs&&p.imgs[0]?p.imgs[0]:''}" alt="${pt(p,'name')}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22><rect fill=%22%23eef0f3%22 width=%2248%22 height=%2248%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%231a2940%22 font-size=%221.2rem%22 font-weight=%22900%22>${pt(p,'name')[0]}</text></svg>'">
+      ${p.imgs&&p.imgs[0]?`<img class="admin-pi-img" src="${p.imgs[0]}" alt="${pt(p,'name')}" onerror="this.onerror=null;this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='flex')"><div class="admin-pi-img admin-pi-placeholder" style="display:none">${pt(p,'name')[0]}</div>`:`<div class="admin-pi-img admin-pi-placeholder">${pt(p,'name')[0]}</div>`}
       <div class="admin-pi-info">
         <h4>${pt(p,'name')}</h4>
         <div class="pi-cat">${p.cat} — ${fmt(p.price)} DZD</div>
@@ -1492,7 +1495,7 @@ function saveAdminForm(){
   const price=get('af-price');
   if(!name||!cat||!price){alert('Name, category & price are required');return}
   const imgsStr=get('af-imgs');
-  const imgs=imgsStr?imgsStr.split(',').map(s=>s.trim()).filter(Boolean):[''];
+  const imgs=imgsStr?imgsStr.split(',').map(s=>s.trim()).filter(Boolean):[];
   const desc=get('af-desc')||'';
   const variantsStr=get('af-variants');
   const variants=variantsStr?variantsStr.split(',').map(s=>s.trim()).filter(Boolean):null;
