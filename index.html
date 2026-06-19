@@ -1031,7 +1031,7 @@ const DEFAULT_PRODUCTS = [
     details:{en:['Pure C8 caprylic acid','Instant energy','Ketone support','Reborn Nutrition'],fr:['Acide caprylique C8 pur','Énergie instantanée','Soutien cétonique','Reborn Nutrition'],ar:['حمض كابريليك C8 نقي','طاقة فورية','دعم الكيتون','ريبرن نيوترشن']}
   }
 ];
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycby9Vrmv1OIurmDFbWiv5NGgArCvzhczPmiVBiA29SbziH7BtCOWKfF1WsLxQOZ-ikzu/exec';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwJUdJ1b-BvldjmkBCJwz-ZQzDCVHekformf31QxTRtiC5u0BZiTz5DVk86lLWB9Itv/exec';
 let productData = [];
 async function syncProducts(){
   try{
@@ -1323,7 +1323,7 @@ function updateDeliveryFee(){
 (function(){var f=document.createElement('form');f.method='POST';f.target='gscript-frame';f.style.display='none';f.id='gscript-form';document.body.appendChild(f);var i=document.createElement('iframe');i.name='gscript-frame';i.style.display='none';document.body.appendChild(i)})();
 function sendOrderEmail(order){
   var f=document.getElementById('gscript-form');
-  f.action='https://script.google.com/macros/s/AKfycby9Vrmv1OIurmDFbWiv5NGgArCvzhczPmiVBiA29SbziH7BtCOWKfF1WsLxQOZ-ikzu/exec';
+  f.action=SCRIPT_URL;
   f.innerHTML='';
   for(var k in order){var inp=document.createElement('input');inp.type='hidden';inp.name=k;inp.value=order[k];f.appendChild(inp)}
   f.submit();
