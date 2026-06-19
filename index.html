@@ -918,6 +918,7 @@ document.querySelectorAll('.lang-btn').forEach(btn=>{
 });
 
 // ========== PRODUCT DATA ==========
+const PRODUCT_VERSION = 2;
 const DEFAULT_PRODUCTS = [
   {
     id:1,cat:'proteins',badge:'NEW',
@@ -1031,9 +1032,11 @@ const DEFAULT_PRODUCTS = [
 let productData = [];
 function syncProducts(){
   const saved=localStorage.getItem('is_products');
-  if(saved)try{const p=JSON.parse(saved);if(Array.isArray(p)&&p.length){productData=p;renderProducts(productData);return}}catch(e){}
+  const ver=localStorage.getItem('is_version');
+  if(saved&&ver==PRODUCT_VERSION)try{const p=JSON.parse(saved);if(Array.isArray(p)&&p.length){productData=p;renderProducts(productData);return}}catch(e){}
   productData=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
   localStorage.setItem('is_products',JSON.stringify(productData));
+  localStorage.setItem('is_version',PRODUCT_VERSION);
   renderProducts(productData);
 }
 
