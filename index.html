@@ -40,9 +40,17 @@ ul{list-style:none}
 .btn-sm:hover{background:#1a2940;color:#fff;border-color:#1a2940}
 .card-wrap{position:relative;overflow:hidden;border-radius:12px;display:flex;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .card-inner{position:relative;z-index:1;background:#fff;display:flex;flex-direction:column}
-/* Promo Bar */
-.promo-bar{background:var(--navy);color:var(--white);text-align:center;padding:10px 16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));font-size:.85rem;font-weight:600;letter-spacing:.3px;position:relative;z-index:1001;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
-.promo-bar .promo-sep{color:rgba(255,255,255,.3);font-weight:300}
+/* Promo Bar (Marquee) */
+.promo-bar{background:var(--navy);color:var(--white);font-size:.85rem;font-weight:600;letter-spacing:.3px;position:relative;z-index:1001;overflow:hidden;padding:10px 0;white-space:nowrap}
+.promo-bar::before,.promo-bar::after{content:'';position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.promo-bar::before{left:0;background:linear-gradient(90deg,var(--navy),transparent)}
+.promo-bar::after{right:0;background:linear-gradient(-90deg,var(--navy),transparent)}
+.promo-track{display:inline-flex;gap:0;animation:marquee 30s linear infinite}
+.promo-bar:hover .promo-track{animation-play-state:paused}
+.promo-track>span{display:inline-flex;align-items:center;gap:6px;padding:0 8px}
+.promo-track .promo-sep{display:inline;padding:0 4px;color:rgba(255,255,255,.3);font-weight:300}
+.promo-track .promo-icon{font-size:1rem}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 /* Header */
 .header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid rgba(26,41,64,.2)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:var(--header-h);padding:0 20px;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right));max-width:1200px;margin:0 auto}
@@ -480,7 +488,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 <body>
 
 <!-- Promo Bar -->
-<div class="promo-bar" data-i18n="promo"><span>🚚</span> Livraison dans toute l'Algérie <span class="promo-sep">|</span> <span>💪</span> Suppléments 100% Originaux <span class="promo-sep">|</span> <span>📞</span> 0554 67 22 22</div>
+<div class="promo-bar"><div class="promo-track"></div></div>
 
 <!-- Header -->
 <header class="header">
@@ -900,6 +908,7 @@ function setLang(lang){
   });
   if(currentFilterCat==='all')renderProducts(productData);
   else renderProducts(productData.filter(p=>p.cat===currentFilterCat));
+  renderPromo();
   renderCart();
   localStorage.setItem('is_lang',lang);
 }
@@ -1056,6 +1065,7 @@ let detailVariant = null;
 document.addEventListener('DOMContentLoaded',()=>{
   syncProducts();
   renderCart();
+  renderPromo();
   const savedLang=localStorage.getItem('is_lang')||'en';
   setLang(savedLang);
   initScrollAnimations();
@@ -1068,6 +1078,19 @@ const pt=(p,field)=>{const d=document.documentElement,l=d.lang;if(!p||!p[field])
 const pdet=(p,idx)=>{const a=pdetArr(p);return a[idx]||''};
 const pdetArr=(p)=>{const d=document.documentElement,l=d.lang;if(!p||!p.details)return[];const v=p.details;if(Array.isArray(v))return v;const a=v[l]||v.en||[];return Array.isArray(a)?a:[]};
 const pvariants=(p)=>{const d=document.documentElement,l=d.lang;if(!p||!p.variants)return null;const v=p.variants;if(Array.isArray(v)){if(v.length&&typeof v[0]==='object'&&!Array.isArray(v[0]))return v.map(x=>x[l]||x.en||'');return v}if(typeof v==='object'&&!Array.isArray(v)){const a=v[l]||v.en||[];return Array.isArray(a)?a:null}return null};
+function renderPromo(){
+  const lang=document.documentElement.lang;
+  const txt=(i18n[lang]&&i18n[lang].promo)||'🚚 Delivery across Algeria | 💪 100% Original Supplements | 📞 0554 67 22 22';
+  const parts=txt.split('|').map(s=>s.trim());
+  const items=parts.map(p=>{
+    const emoji=p.match(/^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F?)/u);
+    const text=emoji?p.slice(emoji[0].length).trim():p;
+    return `<span>${emoji?`<span class="promo-icon">${emoji[0]}</span> `:''}${text}</span>`;
+  });
+  const html=items.join('<span class="promo-sep">|</span>');
+  const track=document.querySelector('.promo-track');
+  if(track)track.innerHTML=html+html;
+}
 let _slc=0;
 function lockScroll(){_slc++;if(_slc>1)return;const y=window.scrollY;document.documentElement.style.overflow='hidden';document.documentElement.dataset.sy=y}
 function unlockScroll(){_slc=Math.max(0,_slc-1);if(_slc>0)return;document.documentElement.style.overflow='';const y=parseInt(document.documentElement.dataset.sy||'0');if(y)window.scrollTo(0,y)}
