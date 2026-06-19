@@ -1073,6 +1073,12 @@ function lockScroll(){_slc++;if(_slc>1)return;const y=window.scrollY;document.do
 function unlockScroll(){_slc=Math.max(0,_slc-1);if(_slc>0)return;document.documentElement.style.overflow='';const y=parseInt(document.documentElement.dataset.sy||'0');if(y)window.scrollTo(0,y)}
 
 // ========== PRODUCT LISTING ==========
+const productObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)'}
+  });
+},{threshold:.1});
+
 function renderProducts(products){
   const grid=document.getElementById('productsGrid');
   const notFoundKey='prod-not-found';
@@ -1095,7 +1101,9 @@ function renderProducts(products){
       </div>
     </div>`
   }).join('');
-  initScrollAnimations();
+  requestAnimationFrame(()=>{
+    grid.querySelectorAll('.product-card').forEach(el=>productObserver.observe(el));
+  });
 }
 
 let currentFilterCat='all';
