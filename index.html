@@ -920,130 +920,112 @@ document.querySelectorAll('.lang-btn').forEach(btn=>{
 // ========== PRODUCT DATA ==========
 const DEFAULT_PRODUCTS = [
   {
-    id:1,cat:'proteins',badge:'none',
-    name:{en:'100% Whey Gold',fr:'100% Whey Gold Or',ar:'100% وي جولد'},
-    price:6700,
-    imgs:['https://picsum.photos/seed/whey1/400/400','https://picsum.photos/seed/whey2/400/400','https://picsum.photos/seed/whey3/400/400'],
-    desc:{en:'Premium whey protein isolate & concentrate blend. 25g protein per serving, low fat & carbs. Mixes instantly. Available in chocolate, vanilla & strawberry.',fr:'Mélange premium d\'isolat et de concentré de protéines de lactosérum. 25g de protéines par portion, faible en matières grasses et glucides. Mélange instantané. Disponible en chocolat, vanille et fraise.',ar:'مزيج بروتين مصل اللبن المعزول والمركز الفاخر. 25 جرام بروتين لكل حصة، دهون وكربوهيدرات منخفضة. يمتزج فوراً. متوفر بنكهات الشوكولاتة والفانيليا والفراولة.'},
-    variants:{en:['Chocolate','Vanilla','Strawberry'],fr:['Chocolat','Vanille','Fraise'],ar:['شوكولاتة','فانيليا','فراولة']},
-    details:{en:['25g protein per serving','1.8g fat • 2.3g carbs','Instant mixing technology','Available in 2kg & 5kg'],fr:['25g de protéines par portion','1.8g de matières grasses • 2.3g de glucides','Technologie de mélange instantané','Disponible en 2kg et 5kg'],ar:['25 جرام بروتين لكل حصة','1.8 جرام دهون • 2.3 جرام كربوهيدرات','تقنية الخلط الفوري','متوفر بحجم 2 كجم و 5 كجم']}
+    id:1,cat:'proteins',badge:'NEW',
+    name:{en:'ISOWHEY BLACK',fr:'ISOWHEY BLACK',ar:'آيسو وي بلاك'},
+    price:7400,
+    imgs:['https://mybody.dz/3843-large_default/isowhey-black.jpg','https://mybody.dz/3843-large_default/isowhey-black.jpg'],
+    desc:{en:'Premium whey protein isolate. Zero sugar, zero fat. Ultra-filtered for maximum purity. Fast absorption for optimal muscle recovery. Available in 1kg & 3kg.',fr:'Isolat de protéine de lactosérum premium. Zéro sucre, zéro matière grasse. Ultra-filtré pour une pureté maximale. Absorption rapide pour une récupération musculaire optimale. Disponible en 1kg et 3kg.',ar:'بروتين مصل اللبن المعزول الفاخر. صفر سكر، صفر دهون. مرشح فائق لأقصى نقاء. امتصاص سريع لاستشفاء العضلات الأمثل. متوفر بحجم 1 كجم و 3 كجم.'},
+    variants:{en:['1 kg','3 kg'],fr:['1 kg','3 kg'],ar:['1 كجم','3 كجم']},
+    details:{en:['Zero sugar • Zero fat','Ultra-filtered isolate','Fast absorption','Available in 1kg & 3kg'],fr:['Zéro sucre • Zéro matière grasse','Isolat ultra-filtré','Absorption rapide','Disponible en 1kg et 3kg'],ar:['صفر سكر • صفر دهون','معزول فائق الترشيح','امتصاص سريع','متوفر بحجم 1 كجم و 3 كجم']}
   },
   {
-    id:2,cat:'proteins',badge:'NEW',
-    name:{en:'ISO Zero Black',fr:'ISO Zero Black',ar:'أيزو زيرو بلاك'},
-    price:8900,
-    imgs:['https://picsum.photos/seed/iso1/400/400','https://picsum.photos/seed/iso2/400/400'],
-    desc:{en:'Ultra-filtered isolate protein. Zero sugar, zero fat. 27g protein per serving. The cleanest protein on the market.',fr:'Protéine isolat ultra-filtrée. Zéro sucre, zéro matière grasse. 27g de protéines par portion. La protéine la plus pure du marché.',ar:'بروتين معزول فائق الترشيح. صفر سكر، صفر دهون. 27 جرام بروتين لكل حصة. أنقى بروتين في السوق.'},
-    variants:{en:['Chocolate','Vanilla'],fr:['Chocolat','Vanille'],ar:['شوكولاتة','فانيليا']},
-    details:{en:['27g protein per serving','0g sugar • 0g fat','CFM micro-filtered','Gluten & lactose free'],fr:['27g de protéines par portion','0g de sucre • 0g de matières grasses','Micro-filtration CFM','Sans gluten ni lactose'],ar:['27 جرام بروتين لكل حصة','0 جرام سكر • 0 جرام دهون','ترشيح دقيق CFM','خالٍ من الغلوتين واللاكتوز']}
+    id:2,cat:'proteins',badge:'none',
+    name:{en:'100% Whey Concentrate',fr:'100% Whey Concentrate',ar:'100% وي سنترات'},
+    price:6700,
+    imgs:['https://mybody.dz/4124-large_default/100-whey-concentrate.jpg'],
+    desc:{en:'High-quality whey protein concentrate from Reborn Nutrition. Perfect for daily protein supplementation. Mixes instantly.',fr:'Concentré de protéines de lactosérum de haute qualité par Reborn Nutrition. Parfait pour une supplémentation quotidienne en protéines. Mélange instantané.',ar:'بروتين مصل اللبن المركز عالي الجودة من ريبرن نيوترشن. مثالي للمكملات البروتينية اليومية. يمتزج فوراً.'},
+    variants:{en:['1 kg'],fr:['1 kg'],ar:['1 كجم']},
+    details:{en:['High-quality concentrate','Daily protein supplementation','Instant mixing','Reborn Nutrition'],fr:['Concentré de haute qualité','Supplémentation quotidienne','Mélange instantané','Reborn Nutrition'],ar:['مركز عالي الجودة','مكمل بروتين يومي','خلط فوري','ريبرن نيوترشن']}
   },
   {
     id:3,cat:'proteins',badge:'none',
-    name:{en:'Mass Gainer Pro',fr:'Mass Gainer Pro',ar:'ماس جاينر برو'},
-    price:7200,
-    imgs:['https://picsum.photos/seed/mass1/400/400','https://picsum.photos/seed/mass2/400/400'],
-    desc:{en:'High-calorie mass gainer with 50g protein & 1000+ calories per serving. Fortified with creatine & BCAAs for maximum gains.',fr:'Gainer hypercalorique avec 50g de protéines et 1000+ calories par portion. Enrichi en créatine et BCAAs pour des gains maximaux.',ar:'مكسب كتلة عالي السعرات مع 50 جرام بروتين وأكثر من 1000 سعرة حرارية لكل حصة. مدعم بالكرياتين والأحماض الأمينية لأقصى النتائج.'},
-    variants:{en:['Chocolate','Vanilla','Banana'],fr:['Chocolat','Vanille','Banane'],ar:['شوكولاتة','فانيليا','موز']},
-    details:{en:['50g protein • 1050 calories','10g creatine per serving','5g BCAAs','Ideal for hard gainers'],fr:['50g de protéines • 1050 calories','10g de créatine par portion','5g de BCAAs','Idéal pour les hard gainers'],ar:['50 جرام بروتين • 1050 سعرة حرارية','10 جرام كرياتين لكل حصة','5 جرام أحماض أمينية','مثالي لصعبي الاكتساب']}
+    name:{en:'CARBORN',fr:'CARBORN',ar:'كاربورن'},
+    price:3900,
+    imgs:['https://mybody.dz/4123-large_default/carborn.jpg'],
+    desc:{en:'Carbohydrate powder for post-workout recovery and weight gain. Ideal for replenishing glycogen stores after intense training.',fr:'Poudre de glucides pour la récupération post-entraînement et la prise de poids. Idéal pour reconstituer les réserves de glycogène après un entraînement intense.',ar:'مسحوق كربوهيدرات للتعافي بعد التمرين وزيادة الوزن. مثالي لتجديد مخازن الجليكوجين بعد التمرين المكثف.'},
+    variants:{en:['1 kg'],fr:['1 kg'],ar:['1 كجم']},
+    details:{en:['Post-workout recovery','Glycogen replenishment','Weight gain support','Reborn Nutrition'],fr:['Récupération post-entraînement','Reconstitution du glycogène','Soutien à la prise de poids','Reborn Nutrition'],ar:['تعافي بعد التمرين','تجديد الجليكوجين','دعم زيادة الوزن','ريبرن نيوترشن']}
   },
   {
-    id:4,cat:'proteins',badge:'none',
-    name:{en:'Casein Night Time',fr:'Casein Night Time',ar:'كازين نايت تايم'},
-    price:6900,
-    imgs:['https://picsum.photos/seed/casein1/400/400','https://picsum.photos/seed/casein2/400/400'],
-    desc:{en:'Slow-release micellar casein. Perfect before bed for overnight muscle recovery. 24g protein per serving.',fr:'Caséine micellaire à libération lente. Parfaite avant le coucher pour la récupération musculaire nocturne. 24g de protéines par portion.',ar:'كازين ميسيلار بطيء الامتصاص. مثالي قبل النوم لاستشفاء العضلات أثناء الليل. 24 جرام بروتين لكل حصة.'},
-    variants:{en:['Chocolate','Vanilla'],fr:['Chocolat','Vanille'],ar:['شوكولاتة','فانيليا']},
-    details:{en:['24g micellar casein','Slow release (6-8 hours)','Rich in glutamine','Great before bed'],fr:['24g de caséine micellaire','Libération lente (6-8 heures)','Riche en glutamine','Idéal avant le coucher'],ar:['24 جرام كازين ميسيلار','إطلاق بطيء (6-8 ساعات)','غني بالجلوتامين','ممتاز قبل النوم']}
-  },
-  {
-    id:5,cat:'creatine',badge:'HOT',
-    name:{en:'Creapure Creatine',fr:'Creapure Creatine',ar:'كريابيور كرياتين'},
+    id:4,cat:'creatine',badge:'HOT',
+    name:{en:'Creatine Creapure®',fr:'Creatine Creapure®',ar:'كرياتين كريابيور'},
     price:4700,
-    imgs:['https://picsum.photos/seed/creapure1/400/400','https://picsum.photos/seed/creapure2/400/400'],
-    desc:{en:'Pure German Creapure® creatine monohydrate. The gold standard of creatine. 100% pure, no additives.',fr:'Créatine monohydrate allemande pure Creapure®. Le standard de référence de la créatine. 100% pure, sans additifs.',ar:'كرياتين مونوهيدرات ألماني نقي Creapure®. المعيار الذهبي للكرياتين. نقي 100%، بدون إضافات.'},
-    variants:{en:['300g','500g','1kg'],fr:['300g','500g','1kg'],ar:['300 جم','500 جم','1 كجم']},
-    details:{en:['99.99% pure Creapure®','German engineered','Micronized powder','Unflavored'],fr:['99.99% pure Creapure®','Conçu en Allemagne','Poudre micronisée','Sans arôme'],ar:['كريابيور نقي 99.99%','هندسة ألمانية','مسحوق ميكروني','بدون نكهة']}
+    imgs:['https://mybody.dz/3918-large_default/creatine-creapure.jpg'],
+    desc:{en:'German Creapure® creatine monohydrate. 100% pure, no additives. 3g of creatine per dose. Unflavored. The gold standard of creatine.',fr:'Créatine monohydrate allemande Creapure®. 100% pure, sans additifs. 3g de créatine par dose. Sans goût. Le standard de référence de la créatine.',ar:'كرياتين مونوهيدرات ألماني كريابيور. نقي 100%، بدون إضافات. 3 جرام كرياتين لكل جرعة. بدون نكهة. المعيار الذهبي للكرياتين.'},
+    variants:{en:['250 g','800 g'],fr:['250 g','800 g'],ar:['250 جم','800 جم']},
+    details:{en:['100% Creapure® Germany','3g creatine per dose','No additives','Unflavored'],fr:['100% Creapure® Allemagne','3g de créatine par dose','Sans additifs','Sans goût'],ar:['100% كريابيور ألمانيا','3 جرام كرياتين لكل جرعة','بدون إضافات','بدون نكهة']}
+  },
+  {
+    id:5,cat:'creatine',badge:'none',
+    name:{en:'Creatine Monohydrate',fr:'Créatine Monohydrate',ar:'كرياتين مونوهيدرات'},
+    price:3500,
+    imgs:['https://mybody.dz/3872-large_default/creatine-monohydrate.jpg'],
+    desc:{en:'High-quality creatine monohydrate powder. Boosts energy during intense training, improves performance, and accelerates muscle recovery.',fr:'Poudre de créatine monohydrate de haute qualité. Booste l\'énergie pendant l\'entraînement intensif, améliore les performances sportives et accélère la récupération musculaire.',ar:'مسحوق كرياتين مونوهيدرات عالي الجودة. يعزز الطاقة أثناء التمرين المكثف، يحسن الأداء الرياضي، ويسرع استشفاء العضلات.'},
+    variants:{en:['300 g','500 g'],fr:['300 g','500 g'],ar:['300 جم','500 جم']},
+    details:{en:['Boosts energy','Improves performance','Accelerates recovery','Reborn Nutrition'],fr:['Boost d\'énergie','Améliore les performances','Accélère la récupération','Reborn Nutrition'],ar:['يعزز الطاقة','يحسن الأداء','يسرع الاستشفاء','ريبرن نيوترشن']}
   },
   {
     id:6,cat:'creatine',badge:'none',
-    name:{en:'Creatine Monohydrate',fr:'Créatine Monohydrate',ar:'كرياتين مونوهيدرات'},
-    price:3500,
-    imgs:['https://picsum.photos/seed/cremono1/400/400','https://picsum.photos/seed/cremono2/400/400'],
-    desc:{en:'High-quality micronized creatine monohydrate. Better absorption, no bloating. Mixes easily in any drink.',fr:'Créatine monohydrate micronisée de haute qualité. Meilleure absorption, sans gonflement. Se mélange facilement dans toute boisson.',ar:'كرياتين مونوهيدرات ميكروني عالي الجودة. امتصاص أفضل، بدون انتفاخ. يمتزج بسهولة في أي مشروب.'},
-    variants:{en:['300g','500g','1kg'],fr:['300g','500g','1kg'],ar:['300 جم','500 جم','1 كجم']},
-    details:{en:['Micronized for absorption','99.9% pure','Easy mixing','Unflavored'],fr:['Micronisée pour absorption','99.9% pure','Mélange facile','Sans arôme'],ar:['ميكروني لامتصاص أفضل','99.9% نقي','خلط سهل','بدون نكهة']}
-  },
-  {
-    id:7,cat:'creatine',badge:'none',
     name:{en:'Crea Caps',fr:'Crea Caps',ar:'كريا كابس'},
     price:5400,
-    imgs:['https://picsum.photos/seed/crecaps1/400/400','https://picsum.photos/seed/crecaps2/400/400'],
-    desc:{en:'Convenient creatine capsules. 1000mg per capsule, 300 caps per bottle. Perfect for on-the-go.',fr:'Gélules de créatine pratiques. 1000mg par gélule, 300 gélules par flacon. Parfaites pour les déplacements.',ar:'كبسولات كرياتين مريحة. 1000 مجم لكل كبسولة، 300 كبسولة لكل زجاجة. مثالية للاستخدام أثناء التنقل.'},
-    variants:{en:['200 caps','300 caps','500 caps'],fr:['200 gélules','300 gélules','500 gélules'],ar:['200 كبسولة','300 كبسولة','500 كبسولة']},
-    details:{en:['1000mg per capsule','Easy to swallow','No taste','Convenient dosing'],fr:['1000mg par gélule','Faciles à avaler','Sans goût','Dosage pratique'],ar:['1000 مجم لكل كبسولة','سهل البلع','بدون طعم','جرعة مريحة']}
+    imgs:['https://mybody.dz/4048-large_default/crea-caps.jpg'],
+    desc:{en:'Convenient creatine capsules from Reborn Nutrition. Easy to swallow, no taste. Perfect for on-the-go supplementation.',fr:'Gélules de créatine pratiques de Reborn Nutrition. Faciles à avaler, sans goût. Parfaites pour une supplémentation en déplacement.',ar:'كبسولات كرياتين مريحة من ريبرن نيوترشن. سهلة البلع، بدون طعم. مثالية للمكملات أثناء التنقل.'},
+    variants:{en:['200 caps'],fr:['200 gélules'],ar:['200 كبسولة']},
+    details:{en:['Easy to swallow','No taste','Convenient dosing','Reborn Nutrition'],fr:['Faciles à avaler','Sans goût','Dosage pratique','Reborn Nutrition'],ar:['سهل البلع','بدون طعم','جرعة مريحة','ريبرن نيوترشن']}
   },
   {
-    id:8,cat:'preworkout',badge:'SALE',
-    name:{en:'Pre-Workout Storm',fr:'Pre-Workout Storm',ar:'بري-وركآوت ستورم'},
-    price:5200,
-    imgs:['https://picsum.photos/seed/prestorm1/400/400','https://picsum.photos/seed/prestorm2/400/400'],
-    desc:{en:'Explosive pre-workout formula with 300mg caffeine, beta-alanine, citrulline malate & agmatine. Zero crash.',fr:'Formule pré-entraînement explosive avec 300mg de caféine, bêta-alanine, citrate de citrulline et agmatine. Zéro descente.',ar:'تركيبة ما قبل التمرين المتفجرة مع 300 مجم كافيين، بيتا ألانين، سيترولين مالات وأجماتين. بدون انهيار.'},
-    variants:{en:['Blue Raspberry','Green Apple','Fruit Punch'],fr:['Framboise Bleue','Pomme Verte','Fruit Punch'],ar:['توت أزرق','تفاح أخضر','فواكه مشكلة']},
-    details:{en:['300mg caffeine','6g citrulline malate','3.2g beta-alanine','No artificial dyes'],fr:['300mg de caféine','6g de citrate de citrulline','3.2g de bêta-alanine','Sans colorants artificiels'],ar:['300 مجم كافيين','6 جرام سيترولين مالات','3.2 جرام بيتا ألانين','بدون ألوان صناعية']}
+    id:7,cat:'preworkout',badge:'NEW',
+    name:{en:'L-Citrulline Malate',fr:'L-Citrulline Malate',ar:'إل-سيترولين مالات'},
+    price:3900,
+    imgs:['https://mybody.dz/3841-large_default/citrulline-malate.jpg'],
+    desc:{en:'Pure L-Citrulline Malate. Enhances blood flow, reduces fatigue, improves endurance and muscle pumps. Perfect pre-workout addition.',fr:'L-Citrulline Malate pur. Améliore le flux sanguin, réduit la fatigue, améliore l\'endurance et les pompes musculaires. Ajout parfait pour le pré-entraînement.',ar:'إل-سيترولين مالات نقي. يعزز تدفق الدم، يقلل التعب، يحسن التحمل والضخامة العضلية. إضافة مثالية لما قبل التمرين.'},
+    variants:{en:['200 g','300 g'],fr:['200 g','300 g'],ar:['200 جم','300 جم']},
+    details:{en:['Enhances blood flow','Reduces fatigue','Improves pumps','Reborn Nutrition'],fr:['Améliore le flux sanguin','Réduit la fatigue','Améliore les pompes','Reborn Nutrition'],ar:['يعزز تدفق الدم','يقلل التعب','يحسن الضخامة','ريبرن نيوترشن']}
+  },
+  {
+    id:8,cat:'preworkout',badge:'none',
+    name:{en:'L-Arginine',fr:'L-Arginine',ar:'إل-أرجينين'},
+    price:3500,
+    imgs:['https://mybody.dz/3873-large_default/arginine.jpg'],
+    desc:{en:'Pure L-Arginine powder. Improves blood flow and oxygen delivery. Enhances athletic performance and accelerates muscle recovery.',fr:'Poudre de L-Arginine pure. Améliore le flux sanguin et l\'apport en oxygène. Améliore les performances sportives et accélère la récupération musculaire.',ar:'مسحوق إل-أرجينين نقي. يحسن تدفق الدم وتوصيل الأكسجين. يعزز الأداء الرياضي ويسرع استشفاء العضلات.'},
+    variants:{en:['200 g','300 g'],fr:['200 g','300 g'],ar:['200 جم','300 جم']},
+    details:{en:['Improves blood flow','Enhances performance','Accelerates recovery','Reborn Nutrition'],fr:['Améliore le flux sanguin','Améliore les performances','Accélère la récupération','Reborn Nutrition'],ar:['يحسن تدفق الدم','يعزز الأداء','يسرع الاستشفاء','ريبرن نيوترشن']}
   },
   {
     id:9,cat:'preworkout',badge:'none',
-    name:{en:'L-Citrulline Malate',fr:'L-Citrulline Malate',ar:'إل-سيترولين مالات'},
-    price:3900,
-    imgs:['https://picsum.photos/seed/cit1/400/400','https://picsum.photos/seed/cit2/400/400'],
-    desc:{en:'Pure L-Citrulline Malate 2:1 ratio. Enhances blood flow, reduces fatigue, improves endurance and pumps.',fr:'L-Citrulline Malate pur ratio 2:1. Améliore le flux sanguin, réduit la fatigue, améliore l\'endurance et les pompes.',ar:'إل-سيترولين مالات نقي بنسبة 2:1. يعزز تدفق الدم، يقلل التعب، يحسن التحمل والضخامة العضلية.'},
-    variants:{en:['200g','300g','500g'],fr:['200g','300g','500g'],ar:['200 جم','300 جم','500 جم']},
-    details:{en:['2:1 ratio','Improved pumps','Reduced fatigue','Unflavored powder'],fr:['Ratio 2:1','Pompes améliorées','Fatigue réduite','Poudre sans arôme'],ar:['نسبة 2:1','ضخامة محسنة','تعب أقل','مسحوق بدون نكهة']}
+    name:{en:'Acetyl-L-Carnitine',fr:'Acetyl-L-Carnitine',ar:'أسيتيل-إل-كارنيتين'},
+    price:2900,
+    imgs:['https://mybody.dz/4118-large_default/acetyl-l-carnitine.jpg'],
+    desc:{en:'Premium acetyl-L-carnitine supplement. Supports energy production, fat metabolism, and cognitive function. Ideal for pre-workout.',fr:'Complément premium d\'acétyl-L-carnitine. Soutient la production d\'énergie, le métabolisme des graisses et la fonction cognitive. Idéal pour le pré-entraînement.',ar:'مكمل أسيتيل-إل-كارنيتين الفاخر. يدعم إنتاج الطاقة، استقلاب الدهون، والوظائف الإدراكية. مثالي لما قبل التمرين.'},
+    variants:{en:['200 g','300 g'],fr:['200 g','300 g'],ar:['200 جم','300 جم']},
+    details:{en:['Energy production','Fat metabolism','Cognitive support','Reborn Nutrition'],fr:['Production d\'énergie','Métabolisme des graisses','Soutien cognitif','Reborn Nutrition'],ar:['إنتاج الطاقة','استقلاب الدهون','دعم إدراكي','ريبرن نيوترشن']}
   },
   {
     id:10,cat:'preworkout',badge:'none',
-    name:{en:'Beta-Alanine Pure',fr:'Bêta-Alanine Pure',ar:'بيتا ألانين بيور'},
-    price:3200,
-    imgs:['https://picsum.photos/seed/beta1/400/400','https://picsum.photos/seed/beta2/400/400'],
-    desc:{en:'Pure beta-alanine powder. Delays muscle fatigue, increases carnosine levels. Stack with creatine for best results.',fr:'Poudre de bêta-alanine pure. Retarde la fatigue musculaire, augmente les niveaux de carnosine. Associez avec la créatine pour des résultats optimaux.',ar:'مسحوق بيتا ألانين نقي. يؤخر إجهاد العضلات، يزيد مستويات الكارنوزين. استخدمه مع الكرياتين لأفضل النتائج.'},
-    variants:{en:['200g','300g','500g'],fr:['200g','300g','500g'],ar:['200 جم','300 جم','500 جم']},
-    details:{en:['Pure beta-alanine','Delays fatigue','Increases endurance','Unflavored'],fr:['Bêta-alanine pure','Retarde la fatigue','Augmente l\'endurance','Sans arôme'],ar:['بيتا ألانين نقي','يؤخر التعب','يزيد التحمل','بدون نكهة']}
+    name:{en:'100% Glutamine',fr:'100% Glutamine',ar:'100% جلوتامين'},
+    price:3700,
+    imgs:['https://mybody.dz/3844-large_default/100-glutamine.jpg'],
+    desc:{en:'Pure L-Glutamine powder. Supports muscle recovery, immune function, and gut health. Essential amino acid for athletes.',fr:'Poudre de L-Glutamine pure. Soutient la récupération musculaire, la fonction immunitaire et la santé digestive. Acide aminé essentiel pour les athlètes.',ar:'مسحوق إل-جلوتامين نقي. يدعم استشفاء العضلات، وظائف المناعة، وصحة الجهاز الهضمي. حمض أميني أساسي للرياضيين.'},
+    variants:{en:['200 g','300 g'],fr:['200 g','300 g'],ar:['200 جم','300 جم']},
+    details:{en:['Muscle recovery','Immune support','Gut health','Reborn Nutrition'],fr:['Récupération musculaire','Soutien immunitaire','Santé digestive','Reborn Nutrition'],ar:['استشفاء العضلات','دعم المناعة','صحة الجهاز الهضمي','ريبرن نيوترشن']}
   },
   {
     id:11,cat:'accessories',badge:'NEW',
-    name:{en:'Shaker Inox Pro',fr:'Shaker Inox Pro',ar:'شاكر إينوكس برو'},
+    name:{en:'Shaker Reborn Inox Black',fr:'Shaker Reborn Inox Noir',ar:'شاكر ريبرن إينوكس أسود'},
     price:2200,
-    imgs:['https://picsum.photos/seed/shaker1/400/400','https://picsum.photos/seed/shaker2/400/400'],
-    desc:{en:'Premium stainless steel shaker bottle. Double-wall insulated, leak-proof, mixing ball included. 700ml capacity.',fr:'Gourde shaker premium en acier inoxydable. Double paroi isolante, anti-fuite, boule mélangeuse incluse. Capacité 700ml.',ar:'زجاجة شاكر من الستانلس ستيل الفاخر. عازل مزدوج الجدار، مانع للتسرب، كرة خلط مرفقة. سعة 700 مل.'},
-    variants:{en:['Black','Silver','Gold'],fr:['Noir','Argent','Or'],ar:['أسود','فضي','ذهبي']},
-    details:{en:['700ml capacity','Double-wall insulation','Leak-proof lid','Mixing ball included'],fr:['Capacité 700ml','Double paroi isolante','Couvercle anti-fuite','Boule mélangeuse incluse'],ar:['سعة 700 مل','عزل مزدوج الجدار','غطاء مانع للتسرب','كرة خلط مرفقة']}
+    imgs:['https://mybody.dz/3839-large_default/shaker-reborn-inox-noir.jpg'],
+    desc:{en:'Premium stainless steel shaker bottle by Reborn Nutrition. Double-wall insulated, leak-proof design. 700ml capacity. Black finish.',fr:'Gourde shaker premium en acier inoxydable par Reborn Nutrition. Double paroi isolante, design anti-fuite. Capacité 700ml. Fini noir.',ar:'زجاجة شاكر من الستانلس ستيل الفاخر من ريبرن نيوترشن. عازل مزدوج الجدار، تصميم مانع للتسرب. سعة 700 مل. لمسة نهائية سوداء.'},
+    variants:{en:['Black'],fr:['Noir'],ar:['أسود']},
+    details:{en:['700ml capacity','Double-wall insulation','Leak-proof','Reborn Nutrition'],fr:['Capacité 700ml','Double paroi isolante','Anti-fuite','Reborn Nutrition'],ar:['سعة 700 مل','عزل مزدوج','مانع للتسرب','ريبرن نيوترشن']}
   },
   {
     id:12,cat:'accessories',badge:'none',
-    name:{en:'Lifting Straps Pro',fr:'Sangles de Tirage Pro',ar:'أربطة رفع برو'},
-    price:1800,
-    imgs:['https://picsum.photos/seed/straps1/400/400','https://picsum.photos/seed/straps2/400/400'],
-    desc:{en:'Heavy-duty cotton lifting straps for deadlifts, rows & pull-ups. Extra long for secure wrapping.',fr:'Sangles de tirage en coton robuste pour soulevés de terre, tirages et tractions. Extra longues pour un enroulement sécurisé.',ar:'أربطة رفع من القطن الثقيل للرفعات الميتة والتمارين. طويلة جداً للف آمن.'},
-    variants:{en:['Black','Red','Blue'],fr:['Noir','Rouge','Bleu'],ar:['أسود','أحمر','أزرق']},
-    details:{en:['Heavy-duty cotton','Extra long (50cm)','Reinforced stitching','Pair pack'],fr:['Coton robuste','Extra longues (50cm)','Coutures renforcées','Vendues par paire'],ar:['قطن ثقيل','طويل جداً (50 سم)','خياطة معززة','زوج من الأربطة']}
-  },
-  {
-    id:13,cat:'accessories',badge:'none',
-    name:{en:'Gym Gloves',fr:'Gants de Sport',ar:'قفازات جيم'},
-    price:2500,
-    imgs:['https://picsum.photos/seed/gloves1/400/400','https://picsum.photos/seed/gloves2/400/400'],
-    desc:{en:'Premium leather gym gloves with padded palms, wrist support & ventilation. Available in all sizes.',fr:'Gants de sport en cuir premium avec paumes rembourrées, support de poignet et ventilation. Disponibles en toutes tailles.',ar:'قفازات جيم جلدية فاخرة مع راحة مبطنة ودعم للمعصم وتهوية. متوفرة بجميع المقاسات.'},
-    variants:{en:['S','M','L','XL'],fr:['S','M','L','XL'],ar:['S','M','L','XL']},
-    details:{en:['Leather palm','Wrist wrap support','Ventilated back','Machine washable'],fr:['Paume en cuir','Support de poignet','Dos ventilé','Lavable en machine'],ar:['راحة جلدية','دعم لف المعصم','ظهر مهوى','غسيل في الغسالة']}
-  },
-  {
-    id:14,cat:'accessories',badge:'none',
-    name:{en:'Weight Lifting Belt',fr:'Ceinture de Musculation',ar:'حزام رفع أوزان'},
-    price:4500,
-    imgs:['https://picsum.photos/seed/belt1/400/400','https://picsum.photos/seed/belt2/400/400'],
-    desc:{en:'10mm thick leather lifting belt for squats, deadlifts & presses. Double-prong buckle for security.',fr:'Ceinture de musculation en cuir de 10mm pour squats, soulevés de terre et développés. Boucle à double ardillon pour la sécurité.',ar:'حزام رفع من الجلد بسمك 10 مم للقرفصاء والرفعات الميتة والضغط. إبزيم مزدوج للأمان.'},
-    variants:{en:['S','M','L','XL'],fr:['S','M','L','XL'],ar:['S','M','L','XL']},
-    details:{en:['10mm thick leather','Double-prong buckle','Uniform width 10cm','Great for heavy lifts'],fr:['Cuir de 10mm d\'épaisseur','Boucle à double ardillon','Largeur uniforme 10cm','Idéal pour charges lourdes'],ar:['جلد بسمك 10 مم','إبزيم مزدوج','عرض موحد 10 سم','ممتاز للأوزان الثقيلة']}
+    name:{en:'MCT Oil C8',fr:'MCT Oil C8',ar:'زيت MCT C8'},
+    price:5400,
+    imgs:['https://mybody.dz/4084-large_default/mct-oil-c8.jpg'],
+    desc:{en:'Pure MCT oil C8 (caprylic acid). Rapidly absorbed for instant energy. Supports ketone production, mental clarity, and fat burning.',fr:'Huile MCT C8 pure (acide caprylique). Absorbée rapidement pour une énergie instantanée. Soutient la production de cétones, la clarté mentale et la combustion des graisses.',ar:'زيت MCT C8 نقي (حمض الكابريليك). يمتص بسرعة لطاقة فورية. يدعم إنتاج الكيتونات والوضوح الذهني وحرق الدهون.'},
+    variants:{en:['500 ml'],fr:['500 ml'],ar:['500 مل']},
+    details:{en:['Pure C8 caprylic acid','Instant energy','Ketone support','Reborn Nutrition'],fr:['Acide caprylique C8 pur','Énergie instantanée','Soutien cétonique','Reborn Nutrition'],ar:['حمض كابريليك C8 نقي','طاقة فورية','دعم الكيتون','ريبرن نيوترشن']}
   }
 ];
 let productData = [];
