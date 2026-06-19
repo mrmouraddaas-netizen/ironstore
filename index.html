@@ -1295,9 +1295,8 @@ function updateDeliveryFee(){
 (function(){var f=document.createElement('form');f.method='POST';f.target='gscript-frame';f.style.display='none';f.id='gscript-form';document.body.appendChild(f);var i=document.createElement('iframe');i.name='gscript-frame';i.style.display='none';document.body.appendChild(i)})();
 function sendOrderEmail(order){
   var f=document.getElementById('gscript-form');
-  f.action='https://script.google.com/macros/s/AKfycbyiXRCyY5U-rwq4lILdD4oMULid1uB5UjHTTm5Lz9WZ4OaoUS0rFAo7wSi-yzpjOXR3/exec';
+  f.action='https://script.google.com/macros/s/AKfycbwGcdL0uju9FcCWwggXrj3haQksWopVJRt9-c_tiDx6iMR0I8ZHJK0EReJnjjtD6_DY/exec';
   f.innerHTML='';
-  var h=document.createElement('input');h.type='hidden';h.name='key';h.value='bg2024';f.appendChild(h);
   for(var k in order){var inp=document.createElement('input');inp.type='hidden';inp.name=k;inp.value=order[k];f.appendChild(inp)}
   f.submit();
 }
