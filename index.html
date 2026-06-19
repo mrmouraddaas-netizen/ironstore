@@ -921,6 +921,7 @@ document.querySelectorAll('.lang-btn').forEach(btn=>{
 
 // ========== PRODUCT DATA ==========
 const PRODUCT_VERSION = 3;
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxU0wucwpsIoRT2zytRHOVLpbJAZGhdwACJxGAicucCqJdDnpzxUU1n9hSbrmejkLLW/exec';
 const DEFAULT_PRODUCTS = [
   {
     id:1,cat:'proteins',badge:'NEW',
@@ -1031,20 +1032,26 @@ const DEFAULT_PRODUCTS = [
     details:{en:['Pure C8 caprylic acid','Instant energy','Ketone support','Reborn Nutrition'],fr:['Acide caprylique C8 pur','Énergie instantanée','Soutien cétonique','Reborn Nutrition'],ar:['حمض كابريليك C8 نقي','طاقة فورية','دعم الكيتون','ريبرن نيوترشن']}
   }
 ];
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzR4EwuQ1zscM9yLqChRZh-EmWcnMi2XbomXTRzqkvqv5cZd9WLVdZK-T0kR6snfWXp/exec';
 let productData = [];
-async function syncProducts(){
-  try{
-    const r=await fetch(SCRIPT_URL+'?action=getProducts');
-    if(r.ok){const d=await r.json();if(d.products&&d.products.length){productData=d.products;localStorage.setItem('is_products',JSON.stringify(productData));localStorage.setItem('is_version',PRODUCT_VERSION);renderProducts(productData);return}}
-  }catch(e){}
+function syncProducts(){
   const saved=localStorage.getItem('is_products');
   const ver=localStorage.getItem('is_version');
-  if(saved&&ver==PRODUCT_VERSION)try{const p=JSON.parse(saved);if(Array.isArray(p)&&p.length){productData=p;renderProducts(productData);return}}catch(e){}
-  productData=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-  localStorage.setItem('is_products',JSON.stringify(productData));
-  localStorage.setItem('is_version',PRODUCT_VERSION);
-  renderProducts(productData);
+  if(saved&&ver==PRODUCT_VERSION)try{const p=JSON.parse(saved);if(Array.isArray(p)&&p.length){productData=p;renderProducts(productData)}}catch(e){}
+  fetch(SCRIPT_URL+'?action=getProducts').then(r=>r.json()).then(d=>{
+    if(d&&d.products&&Array.isArray(d.products)&&d.products.length){
+      productData=d.products;
+      localStorage.setItem('is_products',JSON.stringify(productData));
+      localStorage.setItem('is_version',PRODUCT_VERSION);
+      renderProducts(productData);
+    }
+  }).catch(()=>{
+    if(!productData.length){
+      productData=JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+      localStorage.setItem('is_products',JSON.stringify(productData));
+      localStorage.setItem('is_version',PRODUCT_VERSION);
+      renderProducts(productData);
+    }
+  });
 }
 
 // ========== STATE ==========
@@ -1319,6 +1326,16 @@ function updateDeliveryFee(){
   }
 }
 
+// ========== REMOTE SYNC ==========
+function syncProductsToRemote(){
+  var f=document.getElementById('gscript-form');
+  f.action=SCRIPT_URL;
+  f.innerHTML='';
+  var inp1=document.createElement('input');inp1.type='hidden';inp1.name='action';inp1.value='syncProducts';f.appendChild(inp1);
+  var inp2=document.createElement('input');inp2.type='hidden';inp2.name='products';inp2.value=JSON.stringify(productData);f.appendChild(inp2);
+  navigator.sendBeacon(SCRIPT_URL,new URLSearchParams({action:'syncProducts',products:JSON.stringify(productData)}));
+}
+
 // ========== EMAIL NOTIFICATION ==========
 (function(){var f=document.createElement('form');f.method='POST';f.target='gscript-frame';f.style.display='none';f.id='gscript-form';document.body.appendChild(f);var i=document.createElement('iframe');i.name='gscript-frame';i.style.display='none';document.body.appendChild(i)})();
 function sendOrderEmail(order){
@@ -1425,26 +1442,8 @@ function renderAdminProducts(){
       </div>
     </div>`;
   });
-  h+=`<p style="text-align:center;color:var(--text-muted);font-size:.72rem;padding:12px 0 4px">${productData.length} product(s) • <a href="#" onclick="event.preventDefault();changeAdminPassword()" style="color:var(--navy);text-decoration:underline">Change password</a> • <a href="#" onclick="event.preventDefault();exportProducts()" style="color:var(--navy);text-decoration:underline">Export</a> • <a href="#" onclick="event.preventDefault();_adminAuth=false;toggleAdmin()" style="color:var(--text-muted);text-decoration:underline">Lock</a></p>`;
+  h+=`<p style="text-align:center;color:var(--text-muted);font-size:.72rem;padding:12px 0 4px">${productData.length} product(s) • <a href="#" onclick="event.preventDefault();changeAdminPassword()" style="color:var(--navy);text-decoration:underline">Change password</a> • <a href="#" onclick="event.preventDefault();_adminAuth=false;toggleAdmin()" style="color:var(--text-muted);text-decoration:underline">Lock</a></p>`;
   body.innerHTML=h;
-}
-function exportProducts(){
-  const pData=JSON.parse(JSON.stringify(productData));
-  const defaultIds=new Set(DEFAULT_PRODUCTS.map(p=>p.id));
-  const userProducts=pData.filter(p=>!defaultIds.has(p.id));
-  if(!userProducts.length){alert('No user-added products to export.');return}
-  let code='// Paste these products into DEFAULT_PRODUCTS array\n';
-  userProducts.forEach(p=>{
-    code+=`  {\n    id:${p.id},cat:'${p.cat}',badge:'${p.badge||'none'}',\n    price:${p.price},\n    imgs:[${(p.imgs||[]).map(i=>`'${i}'`).join(',')}],\n    rating:${p.rating||0},reviews:${p.reviews||0},delivery:'${p.delivery||'24h'}',\n`;
-    ['name','desc'].forEach(k=>{if(p[k]&&typeof p[k]==='object'){code+=`    ${k}:{en:'${(p[k].en||'').replace(/'/g,"\\'")}',fr:'${(p[k].fr||'').replace(/'/g,"\\'")}',ar:'${(p[k].ar||'').replace(/'/g,"\\'")}'},\n`}});
-    ['variants','details'].forEach(k=>{if(p[k]&&typeof p[k]==='object'){code+=`    ${k}:{en:[${(p[k].en||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}],fr:[${(p[k].fr||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}],ar:[${(p[k].ar||[]).map(v=>`'${v.replace(/'/g,"\\'")}'`).join(',')}]},\n`}});
-    code+=`  },\n`;
-  });
-  const ta=document.createElement('textarea');
-  ta.value=code;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);
-  ta.select();try{document.execCommand('copy')}catch(e){}
-  document.body.removeChild(ta);
-  alert('Product code copied! Send it to me to add to defaults.');
 }
 function changeAdminPassword(){
   const old=prompt('Current password:');
@@ -1556,12 +1555,6 @@ function createAdminForm(){
   body.appendChild(div);
   return div;
 }
-function syncProductsToRemote(){
-  try{
-    const form=new FormData();form.append('action','syncProducts');form.append('products',JSON.stringify(productData));
-    navigator.sendBeacon(SCRIPT_URL,form);
-  }catch(e){}
-}
 function saveAdminForm(){
   const get=(id)=>{
     const el=document.getElementById(id);
@@ -1607,11 +1600,11 @@ function saveAdminForm(){
     productData.push({id:maxId+1,...data});
   }
   try{localStorage.setItem('is_products',JSON.stringify(productData))}catch(e){showToast('Storage full! Use image URLs instead of uploading.');return}
-  syncProductsToRemote();
   hideAdminForm();
   renderAdminProducts();
   renderProducts(productData);
   showToast('Product saved!');
+  syncProductsToRemote();
 }
 function adminDeleteProduct(id){
   const p=productData.find(x=>x.id===id);
@@ -1620,10 +1613,10 @@ function adminDeleteProduct(id){
   cart=cart.filter(i=>i.id!==id);
   saveCart();
   localStorage.setItem('is_products',JSON.stringify(productData));
-  syncProductsToRemote();
   renderAdminProducts();
   renderProducts(productData);
   showToast('Product deleted!');
+  syncProductsToRemote();
 }
 // ========== LANDING PAGE GENERATOR ==========
 function openLandingPage(id){
