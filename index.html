@@ -1500,11 +1500,18 @@ function uploadAdminImages(input){
   files.forEach(f=>{
     const reader=new FileReader();
     reader.onload=function(e){
-      const url=e.target.result;
-      if(el.value){const arr=el.value.split(',').map(s=>s.trim()).filter(Boolean);arr.push(url);el.value=arr.join(', ')}
-      else el.value=url;
-      pending--;
-      if(pending===0)previewAdminImg();
+      const img=new Image();
+      img.onload=function(){
+        const max=400;let w=img.width,h=img.height;
+        if(w>max||h>max){if(w>h){h*=max/w;w=max}else{w*=max/h;h=max}}
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);
+        const url=c.toDataURL('image/jpeg',.6);
+        if(el.value){const arr=el.value.split(',').map(s=>s.trim()).filter(Boolean);arr.push(url);el.value=arr.join(', ')}
+        else el.value=url;
+        pending--;if(pending===0)previewAdminImg();
+      };
+      img.src=e.target.result;
     };
     reader.readAsDataURL(f);
   });
@@ -1526,9 +1533,9 @@ function createAdminForm(){
       <div><label>Rating (0-5)</label><input id="af-rating" type="number" step="0.1" min="0" max="5" placeholder="e.g. 4.8"></div>
       <div><label>Reviews</label><input id="af-reviews" type="number" placeholder="e.g. 128"></div>
     </div>
-    <label>Image URLs (comma-separated) or upload from device</label>
-    <input id="af-imgs" placeholder="assets/whey-gold-1.jpg, assets/whey-gold-2.jpg" oninput="previewAdminImg()">
-    <div style="margin:4px 0"><input type="file" accept="image/*" multiple onchange="uploadAdminImages(this)" style="font-size:.8rem;color:var(--text-muted)"></div>
+    <label>Image URLs (comma-separated) or upload photos</label>
+    <input id="af-imgs" placeholder="https://example.com/img1.jpg, https://example.com/img2.jpg" oninput="previewAdminImg()">
+    <div style="margin:4px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap"><input type="file" accept="image/*" multiple onchange="uploadAdminImages(this)" style="font-size:.8rem;color:var(--text-muted)"> <span style="font-size:.7rem;color:var(--text-muted)">Images are compressed & stored in browser (small files recommended)</span></div>
     <div id="af-img-preview" style="display:flex;gap:6px;margin:6px 0;flex-wrap:wrap;min-height:48px"></div>
     <label>Description</label>
     <textarea id="af-desc" rows="2" placeholder="Product description"></textarea>
@@ -1590,7 +1597,7 @@ function saveAdminForm(){
     if(!details||!Array.isArray(details)||!details.length){data.details={};['en','fr','ar'].forEach(l=>data.details[l]=[])}else{data.details={};['en','fr','ar'].forEach(l=>data.details[l]=details)}
     productData.push({id:maxId+1,...data});
   }
-  localStorage.setItem('is_products',JSON.stringify(productData));
+  try{localStorage.setItem('is_products',JSON.stringify(productData))}catch(e){showToast('Storage full! Use image URLs instead of uploading.');return}
   hideAdminForm();
   renderAdminProducts();
   renderProducts(productData);
