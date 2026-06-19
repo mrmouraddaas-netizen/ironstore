@@ -1031,8 +1031,13 @@ const DEFAULT_PRODUCTS = [
     details:{en:['Pure C8 caprylic acid','Instant energy','Ketone support','Reborn Nutrition'],fr:['Acide caprylique C8 pur','Énergie instantanée','Soutien cétonique','Reborn Nutrition'],ar:['حمض كابريليك C8 نقي','طاقة فورية','دعم الكيتون','ريبرن نيوترشن']}
   }
 ];
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycby9Vrmv1OIurmDFbWiv5NGgArCvzhczPmiVBiA29SbziH7BtCOWKfF1WsLxQOZ-ikzu/exec';
 let productData = [];
-function syncProducts(){
+async function syncProducts(){
+  try{
+    const r=await fetch(SCRIPT_URL+'?action=getProducts');
+    if(r.ok){const d=await r.json();if(d.products&&d.products.length){productData=d.products;localStorage.setItem('is_products',JSON.stringify(productData));localStorage.setItem('is_version',PRODUCT_VERSION);renderProducts(productData);return}}
+  }catch(e){}
   const saved=localStorage.getItem('is_products');
   const ver=localStorage.getItem('is_version');
   if(saved&&ver==PRODUCT_VERSION)try{const p=JSON.parse(saved);if(Array.isArray(p)&&p.length){productData=p;renderProducts(productData);return}}catch(e){}
@@ -1551,6 +1556,12 @@ function createAdminForm(){
   body.appendChild(div);
   return div;
 }
+function syncProductsToRemote(){
+  try{
+    const form=new FormData();form.append('action','syncProducts');form.append('products',JSON.stringify(productData));
+    navigator.sendBeacon(SCRIPT_URL,form);
+  }catch(e){}
+}
 function saveAdminForm(){
   const get=(id)=>{
     const el=document.getElementById(id);
@@ -1596,6 +1607,7 @@ function saveAdminForm(){
     productData.push({id:maxId+1,...data});
   }
   try{localStorage.setItem('is_products',JSON.stringify(productData))}catch(e){showToast('Storage full! Use image URLs instead of uploading.');return}
+  syncProductsToRemote();
   hideAdminForm();
   renderAdminProducts();
   renderProducts(productData);
@@ -1608,6 +1620,7 @@ function adminDeleteProduct(id){
   cart=cart.filter(i=>i.id!==id);
   saveCart();
   localStorage.setItem('is_products',JSON.stringify(productData));
+  syncProductsToRemote();
   renderAdminProducts();
   renderProducts(productData);
   showToast('Product deleted!');
