@@ -790,7 +790,7 @@ body.rtl .checkout-form input,body.rtl .checkout-form select{font-family:var(--f
 // ========== i18n ==========
 const i18n={
   en:{
-    promo:'🚚 Delivery across Algeria | 💪 100% Original Supplements | 📞 0554 67 22 22',
+    promo:'&#x1F69A; Delivery across Algeria | &#x1F4AA; 100% Original Supplements | &#x1F4DE; 0554 67 22 22',
     'nav-home':'Home','nav-shop':'Shop','nav-features':'Features','nav-contact':'Contact',
     'hero-badge':'Premium Supplements & Gym Gear',
     'hero-title':'FUEL YOUR<br><span class="navy-text">GAINS</span>',
@@ -824,7 +824,7 @@ const i18n={
     'toast-added':'Added to cart!','toast-fill':'Please fill in all fields'
   },
   fr:{
-    promo:'🚚 Livraison dans toute l\'Algérie | 💪 Suppléments 100% Originaux | 📞 0554 67 22 22',
+    promo:'&#x1F69A; Livraison dans toute l\'Algérie | &#x1F4AA; Suppléments 100% Originaux | &#x1F4DE; 0554 67 22 22',
     'nav-home':'Accueil','nav-shop':'Boutique','nav-features':'Caractéristiques','nav-contact':'Contact',
     'hero-badge':'Suppléments Premium & Équipements de Sport',
     'hero-title':'ALIMENTEZ<br><span class="navy-text">VOS GAINS</span>',
@@ -858,7 +858,7 @@ const i18n={
     'toast-added':'Ajouté au panier !','toast-fill':'Veuillez remplir tous les champs'
   },
   ar:{
-    promo:'🚚 توصيل في جميع أنحاء الجزائر | 💪 مكملات 100% أصلية | 📞 0554 67 22 22',
+    promo:'&#x1F69A; توصيل في جميع أنحاء الجزائر | &#x1F4AA; مكملات 100% أصلية | &#x1F4DE; 0554 67 22 22',
     'nav-home':'الرئيسية','nav-shop':'المتجر','nav-features':'المميزات','nav-contact':'اتصل بنا',
     'hero-badge':'مكملات غذائية ومعدات رياضية فاخرة',
     'hero-title':'غذِّ<br><span class="navy-text">مكاسبك</span>',
@@ -1063,7 +1063,7 @@ const pdetArr=(p)=>{const d=document.documentElement,l=d.lang;if(!p||!p.details)
 const pvariants=(p)=>{const d=document.documentElement,l=d.lang;if(!p||!p.variants)return null;const v=p.variants;if(Array.isArray(v)){if(v.length&&typeof v[0]==='object'&&!Array.isArray(v[0]))return v.map(x=>x[l]||x.en||'');return v}if(typeof v==='object'&&!Array.isArray(v)){const a=v[l]||v.en||[];return Array.isArray(a)?a:null}return null};
 function renderPromo(){
   const lang=document.documentElement.lang;
-  const txt=(i18n[lang]&&i18n[lang].promo)||'🚚 Delivery across Algeria | 💪 100% Original Supplements | 📞 0554 67 22 22';
+  const txt=(i18n[lang]&&i18n[lang].promo)||'&#x1F69A; Delivery across Algeria | &#x1F4AA; 100% Original Supplements | &#x1F4DE; 0554 67 22 22';
   const parts=txt.split('|').map(s=>s.trim());
   const html=parts.map(p=>`<span>${p}</span>`).join('<span class="promo-sep">|</span>');
   const track=document.querySelector('.promo-track');
